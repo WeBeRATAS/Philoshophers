@@ -1,4 +1,5 @@
-###1. Introducción al Proyecto Philosophers
+#### 1. Introducción al Proyecto Philosophers
+   *************************************
 El proyecto Philosophers es una simulación del famoso problema de los filósofos cenando (Dining Philosophers Problem). El objetivo es evitar que los filósofos mueran de hambre o entren en un estado de bloqueo (deadlock) mientras comparten recursos (tenedores) usando hilos y mutex.
 
 Requisitos del Proyecto
@@ -10,7 +11,8 @@ Cada filósofo debe realizar tres acciones: pensar, comer y dormir.
 
 Debes evitar el deadlock y garantizar que todos los filósofos coman.
 
-###2. Estructura del Proyecto
+#### 2. Estructura del Proyecto
+   ************************
 El proyecto se divide en varias partes:
 
 Inicialización: Crear los hilos y los mutex.
