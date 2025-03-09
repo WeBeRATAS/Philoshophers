@@ -6,7 +6,7 @@
 /*   By: rbuitrag <rbuitrag@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 08:10:58 by rbuitrag          #+#    #+#             */
-/*   Updated: 2025/03/09 15:09:11 by rbuitrag         ###   ########.fr       */
+/*   Updated: 2025/03/09 17:45:10 by rbuitrag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,12 +43,12 @@ int main(int ac, char **av)
     t_data data;
     
     if (ac < 5 || ac > 6)
-	{
+    {
         printf("Uso: %s <philos> <die> <eat> <sleep> [meals]\n", av[0]);
         return (1);
     }
-	data = calloc(0, sizeof(t_data));
-	data.num_philo = ft_atol(av[1]);
+   // data = calloc(ft_atol(av[1]), sizeof(t_data));
+    data.num_philo = ft_atol(av[1]);
     data.time_to_die = ft_atol(av[2]);
     data.time_to_eat = ft_atol(av[3]);
     data.time_to_sleep = ft_atol(av[4]);
