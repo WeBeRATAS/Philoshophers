@@ -6,16 +6,24 @@
 /*   By: rbuitrag <rbuitrag@student.42barcelona.co  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 19:39:58 by rbuitrag          #+#    #+#             */
-/*   Updated: 2025/02/27 19:40:01 by rbuitrag         ###   ########.fr       */
+/*   Updated: 2025/03/09 11:16:02 by rbuitrag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-void start_simulation(t_data *data) {
-    for (int i = 0; i < data->num_philosophers; i++) {
-        pthread_create(&data->philosophers[i].thread, NULL, philosopher_routine, &data->philosophers[i]);
-    }
+#include "../inc/philo.h"
 
-    for (int i = 0; i < data->num_philosophers; i++) {
-        pthread_join(data->philosophers[i].thread, NULL);
-    }
+void start_simulation(t_data *data)
+{
+	int	i;
+
+	i = 0;
+    while (i < data->num_philo)
+	{
+		pthread_create(&data->philos[i].thread_id, NULL,
+				ft_philosopher_routine, &data->philos[i]);
+		i++;    
+	}
+	i = 0;
+    while (i < data->num_philo)
+       pthread_join(data->philos[i++].thread_id, NULL);
 }
