@@ -6,7 +6,7 @@
 /*   By: rbuitrag <rbuitrag@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 08:10:58 by rbuitrag          #+#    #+#             */
-/*   Updated: 2025/03/10 16:11:01 by rbuitrag         ###   ########.fr       */
+/*   Updated: 2025/03/10 16:31:56 by rbuitrag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int main(int ac, char **av)
         data.num_limit_meals = ft_atol(av[5]);
     if (data.num_philo <= 0 || data.time_to_die <= 0 
         || data.time_to_eat <= 0 || data.time_to_sleep <= 0 
-        || (ac == 6 && data.num_limit_meals <= 0))
+        || (ac == 6 || data.num_limit_meals <= 0))
     {
         printf("Error: Argumentos deben ser numeros positivos\n");
         return (1);

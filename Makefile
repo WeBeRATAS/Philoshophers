@@ -6,7 +6,7 @@
 #    By: rbuitrag <rbuitrag@student.42barcelona.co  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/02/27 19:41:42 by rbuitrag          #+#    #+#              #
-#    Updated: 2025/03/10 14:36:34 by rbuitrag         ###   ########.fr        #
+#    Updated: 2025/03/10 16:33:25 by rbuitrag         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,8 +14,7 @@ NAME = philo
 
 CC = gcc
 
-CFLAGS = -Wall -Werror -Wextra -g #-fsanitize=thread
-#-fsanitize=address -fsanitize=leak
+CFLAGS = -Wall -Werror -Wextra -g -fsanitize=thread #-fsanitize=leak
 
 HEADER = inc/philo.h
 
@@ -49,8 +48,8 @@ fclean: clean
 	@rm -f $(NAME)
 
 va: all
-	valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes -q -s
-	./philo
+	valgrind --leak-check=full --show-leak-kinds=all -q -s ./philo 8 100 100 100
+	5
 
 re: fclean all
 
