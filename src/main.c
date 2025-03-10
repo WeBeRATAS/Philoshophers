@@ -6,69 +6,92 @@
 /*   By: rbuitrag <rbuitrag@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 08:10:58 by rbuitrag          #+#    #+#             */
-/*   Updated: 2025/03/10 16:31:56 by rbuitrag         ###   ########.fr       */
+/*   Updated: 2025/03/10 19:04:51 by rbuitrag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/philo.h"
 
-long ft_atol(const char *str)
-{
-	long	i;
-	long	is_neg;
-	long	res;
+/*number_of_philosophers time_to_die time_to_eat time_to_sleep
+[number_of_times_each_philosopher_must_eat] valgrid --tool=helgrind  */
 
-	i = 0;
-	is_neg = 0;
-	res = 0;
-	while (str[i] == '\t' || str[i] == '\n' || str[i]     == '\r'
-		 || str[i] == 32 || str[i] == '\v' || str[i] ==     '\f')
-	 i++;
-	if (str[i] == '-')
-		is_neg = 1;
-	if (str[i] == '-' || str[i] == '+')
-		i++;
-	while ((str[i] != '\0') && (str[i] >= '0' && str[i    ] <= '9'))
+void	*ft_routine_philosophers(void *arg)
+{
+	t_philo	*philo;
+
+	philo = (t_philo *) arg;
+	if (philo->right_fork == &philo->fork)
+		return (NULL);
+	pthread_mutex_lock(&philo->table->stop_m);
+	while (!philo->table->stop)
 	{
-		res = res * 10 + (str[i] - '0');
-		i++;
+		pthread_mutex_unlock(&philo->table->stop_m);
+		philo_eat(philo);
+		pthread_mutex_lock(&philo->eating_m);
+		philo->is_eating = false;
+		pthread_mutex_unlock(&philo->eating_m);
+		philo_sleep(philo);
+		philo_think(philo);
+		pthread_mutex_lock(&philo->table->stop_m);
+		if (philo->meals == philo->table->each_eat)
+			break ;
 	}
-	if (is_neg)
-		res *= -1;
-	return (res);
+	pthread_mutex_unlock(&philo->table->stop_m);
+	return (NULL);
 }
 
-int main(int ac, char **av)
+static void	init_table(t_table *table)
 {
-    t_data data;
-    
-    if (ac < 5 || ac > 6)
-    {
+	table->each_eat = -1;
+	table->tto_die = 0;
+	table->tto_eat = 0;
+	table->tto_sleep = 0;
+	table->philos = NULL;
+	table->stop = false;
+	table->reset_time = current_timestamp();
+	pthread_mutex_init(&table->stop_m, NULL);
+}
+
+static void	free_table(t_table *table)
+{
+	int		i;
+
+	i = -1;
+	while (table->philos[++i])
+	{
+		pthread_join(table->philos[i]->philo_thrd, NULL);
+		i++;
+	}
+	i = 0;
+	while (table->philos[i])
+	{
+		pthread_mutex_destroy(&table->philos[i]->fork);
+		pthread_mutex_destroy(&table->philos[i]->last_m);
+		pthread_mutex_destroy(&table->philos[i]->eating_m);
+		free(table->philos[i]);
+		i++;
+	}
+	pthread_mutex_destroy(&table->stop_m);
+	free (table->philos);
+}
+
+int	main(int ac, char **av)
+{
+	t_table	table;
+
+	if (!check_init_args(ac, av, &table))
+	{
 		printf("Wrong parametres \n");
         printf("Use %s <philos🎅> <die☠️ > <eat🍴> <sleep💤>[meals🍝]\n", av[0]);
         printf("Example: ./philo 6 200 200 200 [3]\n");
+		if (table.philos)
+			free(table.philos);
 		return (1);
-    }
-   // data = calloc(ft_atol(av[1]), sizeof(t_data));
-    if (ac == 6)
-        data.num_limit_meals = ft_atol(av[5]);
-    if (data.num_philo <= 0 || data.time_to_die <= 0 
-        || data.time_to_eat <= 0 || data.time_to_sleep <= 0 
-        || (ac == 6 || data.num_limit_meals <= 0))
-    {
-        printf("Error: Argumentos deben ser numeros positivos\n");
-        return (1);
-    }
-    data.num_philo = ft_atol(av[1]);
-    data.time_to_die = ft_atol(av[2]);
-    data.time_to_eat = ft_atol(av[3]);
-    data.time_to_sleep = ft_atol(av[4]);
-    if (init_data(&data, data.num_philo) != 0)
-    {
-        printf("Error inicializando datos\n");
-        return (1);
-    }
-    start_simulation(&data);
-    cleanup(&data);
-    return (0);
+	}
+	init_table(&table);
+	start_threads(&table);
+	usleep(50 * ac);
+	philo_killer(&table, -1);
+	free_table(&table);
+	return (0);
 }

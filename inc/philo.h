@@ -6,57 +6,62 @@
 /*   By: rbuitrag <rbuitrag@student.42barcelona.co  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 19:40:14 by rbuitrag          #+#    #+#             */
-/*   Updated: 2025/03/10 14:24:45 by rbuitrag         ###   ########.fr       */
+/*   Updated: 2025/03/10 18:27:47 by rbuitrag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <pthread.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <stdbool.h>
+#ifndef PHILO_H
+# define PHILO_H
 
-/* PHILO
-  *  run the program example
-  * ./philo 5 800 200 200 [5]
-  *	        
- */
+# include <unistd.h>
+# include <string.h>
+# include <stdio.h>
+# include <pthread.h>
+# include <stdlib.h>
+# include <sys/time.h>
+# include <stdbool.h>
 
-typedef pthread_mutex_t t_mutex;
+typedef struct s_philo	t_philo;
 
-typedef struct s_fork
+typedef struct s_table
 {
-	t_mutex	fork;
-	int		fork_id;
-}			t_fork;
+	t_philo			**philos;
+	long long		tto_die;
+	int				tto_eat;
+	int				tto_sleep;
+	int				each_eat;
+	pthread_mutex_t	stop_m;
+	bool			stop;
+	long long		reset_time;
+}	t_table;
 
 typedef struct s_philo
 {
-    int id;
-    pthread_t thread_id;
-    t_fork	*left_fork;
-    t_fork	*right_fork;
-	long	meals_counter;
-	bool	full;
-	long	last_meal_time;
-}			t_philo;
+	t_table			*table;
+	pthread_t		philo_thrd;
+	pthread_mutex_t	*right_fork;
+	pthread_mutex_t	fork;
+	pthread_mutex_t	eating_m;
+	bool			is_eating;
+	int				name;
+	int				meals;
+	pthread_mutex_t	last_m;
+	long long		last_meal;
+}	t_philo;
 
-typedef struct s_data
-{
-    long	num_philo;
-	long	time_to_die;
-	long	time_to_eat;
-	long	time_to_sleep;
-	long	start_simulation;
-	long	num_limit_meals; // [5] 
-	bool	end_simulation; // philos dies or philos all full
-    t_philo	*philos;
-    t_fork	*forks;
-}			t_data;
+//Main_Functions
+bool		check_init_args(int ac, char **av, t_table *table);
+void		set_forks(t_table *table);
+void		*ft_routine_philosophers(void *arg);
+void		start_threads(t_table *table);
+long long	current_timestamp(void);
+int			philo_killer(t_table *table, int i);
+void		kill(t_table *table, int i);
 
-/* FUNCTIONS PHILO */
-void	start_simulation(t_data *data);
-int		init_data(t_data *data, long num_philosophers);
-void	*ft_philosopher_routine(void *arg);
-void	cleanup(t_data *data);
-void	precise_usleep(long usec);
+//Philophers Actions
+void		philo_think(t_philo *philo);
+void		philo_sleep(t_philo *philo);
+void		philo_eat(t_philo *philo);
+void		precise_usleep(long miliseconds);
+
+#endif

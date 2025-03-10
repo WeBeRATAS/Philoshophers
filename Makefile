@@ -6,7 +6,7 @@
 #    By: rbuitrag <rbuitrag@student.42barcelona.co  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/02/27 19:41:42 by rbuitrag          #+#    #+#              #
-#    Updated: 2025/03/10 16:33:25 by rbuitrag         ###   ########.fr        #
+#    Updated: 2025/03/10 18:32:32 by rbuitrag         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,10 +19,10 @@ CFLAGS = -Wall -Werror -Wextra -g -fsanitize=thread #-fsanitize=leak
 HEADER = inc/philo.h
 
 CFILES =  main.c\
-		  create_pthread.c \
-		  init_mutex_philo.c \
-		  philo_routine.c \
-		  custom_usleep.c \
+		  philo_actions.c \
+		  check_args.c \
+		  control_time.c \
+		  utils.c \
 		  		  		 
 
 GREEN = "\033[92m" 
@@ -42,7 +42,7 @@ $(NAME): $(OBJS)
 	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
-	@rm -f $(OBJS)
+	rm -f $(OBJS)
 
 fclean: clean
 	@rm -f $(NAME)
