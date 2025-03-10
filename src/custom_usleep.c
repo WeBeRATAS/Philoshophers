@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   prueba_custom_usleep.c                             :+:      :+:    :+:   */
+/*   custom_usleep.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rbuitrag <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 12:31:22 by rbuitrag          #+#    #+#             */
-/*   Updated: 2025/03/10 13:47:47 by rbuitrag         ###   ########.fr       */
+/*   Updated: 2025/03/10 14:09:07 by rbuitrag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void precise_usleep(long usec)
 			usleep(rem / 2);
 	}
 }
-
+/*
 int	main(void)
 {
 	struct timeval start;
@@ -55,11 +55,10 @@ int	main(void)
 	microseconds = end.tv_usec - start.tv_usec;
 	elapsed = seconds + microseconds * 1e-6;
 
-	/*printf("Expected sleeep: " BOLD_RED "\t0.5" RESET " seconds \n");
-	printf("Actual sleeep: " BOLD_RED "\t\t%f" RESET " seconds \n\n",
-	elapsed);*/
+	//printf("Expected sleeep: " BOLD_RED "\t0.5" RESET " seconds \n");
+	//printf("Actual sleeep: " BOLD_RED "\t\t%f" RESET " seconds \n\n",
+	//elapsed);
 	printf("Expected sleep duration: \t %ld \n", seconds);
     printf("Actual sleep duration: \t\t %ld %f \n\n", seconds, elapsed);
 	return (0);
-}
-
+}*/

@@ -6,7 +6,7 @@
 /*   By: rbuitrag <rbuitrag@student.42barcelona.co  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 19:40:14 by rbuitrag          #+#    #+#             */
-/*   Updated: 2025/03/09 13:10:53 by rbuitrag         ###   ########.fr       */
+/*   Updated: 2025/03/10 14:24:45 by rbuitrag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,3 +59,4 @@ void	start_simulation(t_data *data);
 int		init_data(t_data *data, long num_philosophers);
 void	*ft_philosopher_routine(void *arg);
 void	cleanup(t_data *data);
+void	precise_usleep(long usec);
