@@ -6,7 +6,7 @@
 #    By: rbuitrag <rbuitrag@student.42barcelona.co  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/02/27 19:41:42 by rbuitrag          #+#    #+#              #
-#    Updated: 2025/03/10 18:32:32 by rbuitrag         ###   ########.fr        #
+#    Updated: 2025/03/10 19:13:24 by rbuitrag         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME = philo
 
 CC = gcc
 
-CFLAGS = -Wall -Werror -Wextra -g -fsanitize=thread #-fsanitize=leak
+CFLAGS = -Wall -Werror -Wextra -g #-fsanitize=thread #-fsanitize=leak
 
 HEADER = inc/philo.h
 

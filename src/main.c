@@ -6,7 +6,7 @@
 /*   By: rbuitrag <rbuitrag@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 08:10:58 by rbuitrag          #+#    #+#             */
-/*   Updated: 2025/03/10 19:04:51 by rbuitrag         ###   ########.fr       */
+/*   Updated: 2025/03/10 19:12:41 by rbuitrag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ int	main(int ac, char **av)
 {
 	t_table	table;
 
+	init_table(&table);
 	if (!check_init_args(ac, av, &table))
 	{
 		printf("Wrong parametres \n");
@@ -88,7 +89,6 @@ int	main(int ac, char **av)
 			free(table.philos);
 		return (1);
 	}
-	init_table(&table);
 	start_threads(&table);
 	usleep(50 * ac);
 	philo_killer(&table, -1);
