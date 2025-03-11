@@ -6,7 +6,7 @@
 /*   By: rbuitrag <rbuitrag@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 18:16:47 by rbuitrag          #+#    #+#             */
-/*   Updated: 2025/03/11 14:01:29 by rbuitrag         ###   ########.fr       */
+/*   Updated: 2025/03/11 20:58:18 by rbuitrag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,11 +40,9 @@ void	start_threads(t_table *table)
 				ft_routine_philosophers, table->philos[i]);
 		}
 	}
-	else
-		return ;
 }
 
-static void	unlock_and_gettime(t_table *table, long long *time_now, int i)
+static void	unlock_and_gettime(t_table *table, long *time_now, int i)
 {
 	pthread_mutex_unlock(&table->stop_m);
 	*time_now = current_timestamp();
@@ -60,29 +58,29 @@ static void	killer_func(t_table *table, int i)
 	pthread_mutex_unlock(&table->philos[i]->last_m);
 }
 
-int philo_killer(t_table *table, int i)
+int philo_cleaner(t_table *table, int i)
 {
-    long long time_now;
+    long	time_now;
 
-    while (1) {
-        i = -1;
-        while (table->philos[++i]) {
-            pthread_mutex_lock(&table->stop_m);
-            if (table->stop)
+    while (1)
+	{
+		i = -1;
+		while (table->philos[++i])
+		{
+			pthread_mutex_lock(&table->stop_m);
+			if (!table->stop)
 			{
-                pthread_mutex_unlock(&table->stop_m);
-                return (0);
-            }
-            unlock_and_gettime(table, &time_now, i);
-            if (time_now - table->philos[i]->last_meal > table->tto_die)
-			{
-                killer_func(table, i);
-                pthread_mutex_unlock(&table->stop_m);
-                return (0);
-            }
-            pthread_mutex_unlock(&table->philos[i]->last_m);
-            pthread_mutex_unlock(&table->stop_m);
-        }
-    }
-    return (0);
+				unlock_and_gettime(table, &time_now, i);
+				if (time_now - table->philos[i]->last_meal > table->tto_die)
+				{
+					killer_func(table, i);
+					break ;
+				}
+				else
+					pthread_mutex_unlock(&table->philos[i]->last_m);
+			}
+			else
+				return (pthread_mutex_unlock(&table->stop_m));
+		}
+	}
 }

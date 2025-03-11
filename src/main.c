@@ -6,7 +6,7 @@
 /*   By: rbuitrag <rbuitrag@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 08:10:58 by rbuitrag          #+#    #+#             */
-/*   Updated: 2025/03/11 14:17:54 by rbuitrag         ###   ########.fr       */
+/*   Updated: 2025/03/11 20:34:28 by rbuitrag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 /*number_of_philosophers time_to_die time_to_eat time_to_sleep
 [number_of_times_each_philosopher_must_eat] valgrid --tool=helgrind  */
 
-/*void	*ft_routine_philosophers(void *arg)
+void	*ft_routine_philosophers(void *arg)
 {
 	t_philo	*philo;
 
@@ -38,41 +38,6 @@
 	}
 	pthread_mutex_unlock(&philo->table->stop_m);
 	return (NULL);
-}*/
-
-void *ft_routine_philosophers(void *arg)
-{
-    t_philo *philo;
-
-    philo = (t_philo *)arg;
-    if (philo->right_fork == &philo->left_fork)
-        return (NULL);
-    pthread_mutex_lock(&philo->table->stop_m);
-    while (!philo->table->stop)
-    {
-        pthread_mutex_unlock(&philo->table->stop_m);
-
-        // Filósofos impares intentan coger tenedores primero
-        if (philo->name % 2 == 1)
-        {
-            philo_eat(philo);
-        }
-        else
-        {
-            // Filósofos pares esperan un poco antes de intentar coger tenedores
-            precise_usleep(philo->table->tto_eat / 2);
-            philo_eat(philo);
-        }
-
-        // Verificar si el filósofo puede comer
-        if (philo->meals < philo->table->each_eat)
-            philo_think(philo);
-        pthread_mutex_lock(&philo->table->stop_m);
-        if (philo->meals == philo->table->each_eat)
-            break;
-    }
-    pthread_mutex_unlock(&philo->table->stop_m);
-    return (NULL);
 }
 
 static void	init_table(t_table *table)
@@ -122,7 +87,7 @@ int	main(int ac, char **av)
 	}
 	start_threads(&table);
 	usleep(50 * ac);
-	philo_killer(&table, -1);
+	philo_cleaner(&table, -1);
 	free_table(&table);
 	return (0);
 }
