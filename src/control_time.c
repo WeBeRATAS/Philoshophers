@@ -6,7 +6,7 @@
 /*   By: rbuitrag <rbuitrag@student.42barcelon      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 17:03:44 by rbuitrag          #+#    #+#             */
-/*   Updated: 2025/03/10 19:24:45 by rbuitrag         ###   ########.fr       */
+/*   Updated: 2025/03/11 12:20:08 by rbuitrag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,5 +45,5 @@ void	kill(t_table *table, int i)
 	pthread_mutex_unlock(&table->stop_m);
 	now = current_timestamp();
 	if (table->each_eat != table->philos[i]->meals)
-		printf("%lld %d died☠️ \n", now - table->reset_time, i + 1);
+		printf("%lld %d died ☠️  \n", now - table->reset_time, i + 1);
 }

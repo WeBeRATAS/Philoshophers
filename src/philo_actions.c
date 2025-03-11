@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo_actions.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbuitrag <rbuitrag@student.42barcelon      +#+  +:+       +#+        */
+/*   By: rbuitrag <rbuitrag@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 17:12:00 by rbuitrag          #+#    #+#             */
-/*   Updated: 2025/03/10 19:21:32 by rbuitrag         ###   ########.fr       */
+/*   Updated: 2025/03/11 14:09:25 by rbuitrag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,20 +29,20 @@ void	philo_sleep(t_philo *philo)
 		printf ("%lld %d is sleeping 💤 \n", current_timestamp() - \
 				philo->table->reset_time, philo->name);
 	pthread_mutex_unlock(&philo->table->stop_m);
-	precise_usleep(philo->table->tto_sleep);
+	precise_usleep(philo->table->tto_eat / 2);
 }
 
 void	philo_eat(t_philo *philo)
 {
-	if (&philo->fork < philo->right_fork)
+	if (&philo->left_fork < philo->right_fork)
 	{
-		take_fork(&philo->fork, philo);
+		take_fork(&philo->left_fork, philo);
 		take_fork(philo->right_fork, philo);
 	}
 	else
 	{
 		take_fork(philo->right_fork, philo);
-		take_fork(&philo->fork, philo);
+		take_fork(&philo->left_fork, philo);
 	}
 	pthread_mutex_lock(&philo->eating_m);
 	philo->is_eating = true;
@@ -57,7 +57,7 @@ void	philo_eat(t_philo *philo)
 				philo->table->reset_time, philo->name);
 	pthread_mutex_unlock(&philo->table->stop_m);
 	precise_usleep(philo->table->tto_eat);
-	pthread_mutex_unlock(&philo->fork);
+	pthread_mutex_unlock(&philo->left_fork);
 	pthread_mutex_unlock(philo->right_fork);
 }
 

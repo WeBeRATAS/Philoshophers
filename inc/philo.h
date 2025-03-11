@@ -6,7 +6,7 @@
 /*   By: rbuitrag <rbuitrag@student.42barcelona.co  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 19:40:14 by rbuitrag          #+#    #+#             */
-/*   Updated: 2025/03/10 18:27:47 by rbuitrag         ###   ########.fr       */
+/*   Updated: 2025/03/11 12:36:41 by rbuitrag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ typedef struct s_philo
 	t_table			*table;
 	pthread_t		philo_thrd;
 	pthread_mutex_t	*right_fork;
-	pthread_mutex_t	fork;
+	pthread_mutex_t	left_fork;
 	pthread_mutex_t	eating_m;
 	bool			is_eating;
 	int				name;

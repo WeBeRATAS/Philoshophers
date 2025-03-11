@@ -6,7 +6,7 @@
 #    By: rbuitrag <rbuitrag@student.42barcelona.co  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/02/27 19:41:42 by rbuitrag          #+#    #+#              #
-#    Updated: 2025/03/10 19:13:24 by rbuitrag         ###   ########.fr        #
+#    Updated: 2025/03/11 12:17:50 by rbuitrag         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,8 +48,7 @@ fclean: clean
 	@rm -f $(NAME)
 
 va: all
-	valgrind --leak-check=full --show-leak-kinds=all -q -s ./philo 8 100 100 100
-	5
+	valgrind --leak-check=full --show-leak-kinds=all -q -s ./philo 5 800 200 200 7
 
 re: fclean all
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_args.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbuitrag <rbuitrag@student.42barcelon      +#+  +:+       +#+        */
+/*   By: rbuitrag <rbuitrag@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 18:11:19 by rbuitrag          #+#    #+#             */
-/*   Updated: 2025/03/10 18:28:17 by rbuitrag         ###   ########.fr       */
+/*   Updated: 2025/03/11 13:53:54 by rbuitrag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,14 +50,15 @@ static void	init_philosophers(t_table *table, int count)
 	while (++i < count)
 	{
 		table->philos[i] = malloc(sizeof(t_philo));
-		pthread_mutex_init(&table->philos[i]->fork, NULL);
+		pthread_mutex_init(&table->philos[i]->left_fork, NULL);
+		pthread_mutex_init(table->philos[i]->right_fork, NULL);
 		pthread_mutex_init(&table->philos[i]->last_m, NULL);
 		pthread_mutex_init(&table->philos[i]->eating_m, NULL);
 		table->philos[i]->right_fork = NULL;
 		table->philos[i]->table = table;
 		table->philos[i]->name = i + 1;
 		table->philos[i]->meals = 0;
-		table->philos[i]->last_meal = -1;
+		table->philos[i]->last_meal = 0;
 		table->philos[i]->is_eating = false;
 	}
 	set_forks(table);
@@ -86,6 +87,7 @@ bool	check_init_args(int ac, char **av, t_table *table)
 {
 	int	num;
 
+	num = 0;
 	if (!check_digits(ac, av))
 		return (false);
 	if (ac < 5 || ac > 6)
