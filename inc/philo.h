@@ -6,7 +6,7 @@
 /*   By: rbuitrag <rbuitrag@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 19:40:14 by rbuitrag          #+#    #+#             */
-/*   Updated: 2025/03/11 21:09:26 by rbuitrag         ###   ########.fr       */
+/*   Updated: 2025/03/11 21:54:20 by rbuitrag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ typedef struct s_philo	t_philo;
 typedef struct s_table
 {
 	t_philo			**philos;
+	int				num_philos;
 	long			tto_die;
 	int				tto_eat;
 	int				tto_sleep;
@@ -57,6 +58,7 @@ void		kill(t_table *table, int i);
 
 //Init_Functions
 void		init_table(t_table *table);
+void		init_philosophers(t_table *table, int num_philos);
 void		set_forks(t_table *table);
 void		start_threads(t_table *table);
 

@@ -6,7 +6,7 @@
 /*   By: rbuitrag <rbuitrag@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 18:11:19 by rbuitrag          #+#    #+#             */
-/*   Updated: 2025/03/11 21:00:55 by rbuitrag         ###   ########.fr       */
+/*   Updated: 2025/03/11 21:55:09 by rbuitrag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,29 +42,6 @@ static int	ft_atoi(const char *str)
 	return (num * sign);
 }
 
-static void	init_philosophers(t_table *table, int num_philos)
-{
-	int		i;
-
-	i = -1;
-	while (++i < num_philos)
-	{
-		table->philos[i] = malloc(sizeof(t_philo));
-		if (!table->philos[i])
-			return ;
-		pthread_mutex_init(&table->philos[i]->left_fork, NULL);
-		pthread_mutex_init(&table->philos[i]->last_m, NULL);
-		pthread_mutex_init(&table->philos[i]->eating_m, NULL);
-		table->philos[i]->right_fork = NULL;
-		table->philos[i]->table = table;
-		table->philos[i]->id = i;
-		table->philos[i]->meals = 0;
-		table->philos[i]->last_meal = -1;
-		table->philos[i]->is_eating = false;
-	}
-	set_forks(table);
-}
-
 static bool	check_digits(int ac, char **av)
 {
 	int	i;
@@ -86,30 +63,20 @@ static bool	check_digits(int ac, char **av)
 
 bool	check_args(int ac, char **av, t_table *table)
 {
-	int	num;
-
-	num = 0;
-	if (!check_digits(ac, av))
+	if (ac < 5 || ac > 6 || !check_digits(ac, av))
 		return (false);
-	if (ac < 5 || ac > 6)
-		return (false);
-	if (ac == 6)
-	{
-		table->each_eat = ft_atoi(av[5]);
-		if (table->each_eat <= 0)
-			return (false);
-	}
-	table->tto_sleep = ft_atoi(av[4]);
-	table->tto_eat = ft_atoi(av[3]);
 	table->tto_die = ft_atoi(av[2]);
-	num = ft_atoi(av[1]);
-	if (!(table->tto_sleep > 0 && table->tto_eat > 0 && table->tto_die > 0 \
-		&& num > 0))
+	table->tto_eat = ft_atoi(av[3]);
+	table->tto_sleep = ft_atoi(av[4]);
+	table->each_eat = (ac == 6) ? ft_atoi(av[5]) : -1;
+	table->num_philos = ft_atoi(av[1]);
+	if (table->tto_die <= 0 || table->tto_eat <= 0 || 
+		table->tto_sleep <= 0 || table->num_philos <= 0 || 
+		(ac == 6 && table->each_eat <= 0))
 		return (false);
-	table->philos = malloc((num + 1) * sizeof(t_philo *));	
-	table->philos[num] = NULL;
+	table->philos = malloc((table->num_philos + 1) * sizeof(t_philo *));
 	if (!table->philos)
 		return (false);
-	init_philosophers(table, num);
-	return (true);
+	table->philos[table->num_philos] = NULL;
+	return (init_philosophers(table, table->num_philos), true);
 }
