@@ -6,7 +6,7 @@
 /*   By: rbuitrag <rbuitrag@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 19:40:14 by rbuitrag          #+#    #+#             */
-/*   Updated: 2025/03/11 20:34:45 by rbuitrag         ###   ########.fr       */
+/*   Updated: 2025/03/11 21:09:26 by rbuitrag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,18 +50,23 @@ typedef struct s_philo
 }	t_philo;
 
 //Main_Functions
-bool		check_init_args(int ac, char **av, t_table *table);
-void		set_forks(t_table *table);
+bool		check_args(int ac, char **av, t_table *table);
 void		*ft_routine_philosophers(void *arg);
-void		start_threads(t_table *table);
-long		current_timestamp(void);
-int			philo_cleaner(t_table *table, int i);
+int		philo_cleaner(t_table *table, int i);
 void		kill(t_table *table, int i);
+
+//Init_Functions
+void		init_table(t_table *table);
+void		set_forks(t_table *table);
+void		start_threads(t_table *table);
 
 //Philophers Actions
 void		philo_think(t_philo *philo);
 void		philo_sleep(t_philo *philo);
 void		philo_eat(t_philo *philo);
+
+//Control time
 void		precise_usleep(long miliseconds);
+long		current_timestamp(void);
 
 #endif

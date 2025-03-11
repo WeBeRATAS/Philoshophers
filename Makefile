@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: rbuitrag <rbuitrag@student.42barcelona.co  +#+  +:+       +#+         #
+#    By: rbuitrag <rbuitrag@student.42barcelona.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/02/27 19:41:42 by rbuitrag          #+#    #+#              #
-#    Updated: 2025/03/11 12:17:50 by rbuitrag         ###   ########.fr        #
+#    Updated: 2025/03/11 21:10:30 by rbuitrag         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME = philo
 
 CC = gcc
 
-CFLAGS = -Wall -Werror -Wextra -g #-fsanitize=thread #-fsanitize=leak
+CFLAGS = -Wall -Werror -Wextra -g -fsanitize=thread #-fsanitize=leak
 
 HEADER = inc/philo.h
 
@@ -23,6 +23,8 @@ CFILES =  main.c\
 		  check_args.c \
 		  control_time.c \
 		  utils.c \
+		  init.c \
+		  routine.c \
 		  		  		 
 
 GREEN = "\033[92m" 

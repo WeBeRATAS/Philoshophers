@@ -6,7 +6,7 @@
 /*   By: rbuitrag <rbuitrag@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 18:11:19 by rbuitrag          #+#    #+#             */
-/*   Updated: 2025/03/11 20:40:54 by rbuitrag         ###   ########.fr       */
+/*   Updated: 2025/03/11 21:00:55 by rbuitrag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ static bool	check_digits(int ac, char **av)
 	return (true);
 }
 
-bool	check_init_args(int ac, char **av, t_table *table)
+bool	check_args(int ac, char **av, t_table *table)
 {
 	int	num;
 
