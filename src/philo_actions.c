@@ -6,20 +6,27 @@
 /*   By: rbuitrag <rbuitrag@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 17:12:00 by rbuitrag          #+#    #+#             */
-/*   Updated: 2025/03/11 20:46:51 by rbuitrag         ###   ########.fr       */
+/*   Updated: 2025/03/12 13:45:06 by rbuitrag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/philo.h"
 
-static void	take_fork(pthread_mutex_t *fork, t_philo *philo)
+static bool	take_fork(pthread_mutex_t *fork, t_philo *philo)
 {
 	pthread_mutex_lock(fork);
 	pthread_mutex_lock(&philo->table->stop_m);
 	if (!philo->table->stop)
-		printf ("%ld %d has taken a fork 🍴 \n", current_timestamp() - \
-				philo->table->reset_time, philo->id);
+		printf ("%ld %d has taken a fork 🍴 [%p]\n", current_timestamp() - \
+				philo->table->reset_time, philo->id, fork);
+	if (philo->table->num_philos == 1)
+	{
+		precise_usleep(philo->table->tto_die);
+		pthread_mutex_unlock(fork);
+		return (false);
+	}
 	pthread_mutex_unlock(&philo->table->stop_m);
+	return (true);
 }
 
 void	philo_sleep(t_philo *philo)
@@ -34,15 +41,12 @@ void	philo_sleep(t_philo *philo)
 
 void	philo_eat(t_philo *philo)
 {
-	if (&philo->left_fork < philo->right_fork)
+	if (!take_fork(&philo->left_fork, philo))
+		return ;
+	if (!take_fork(philo->right_fork, philo))
 	{
-		take_fork(&philo->left_fork, philo);
-		take_fork(philo->right_fork, philo);
-	}
-	else
-	{
-		take_fork(philo->right_fork, philo);
-		take_fork(&philo->left_fork, philo);
+		pthread_mutex_unlock(&philo->left_fork);
+		return ;		
 	}
 	pthread_mutex_lock(&philo->eating_m);
 	philo->is_eating = true;
@@ -57,6 +61,7 @@ void	philo_eat(t_philo *philo)
 				philo->table->reset_time, philo->id);
 	pthread_mutex_unlock(&philo->table->stop_m);
 	precise_usleep(philo->table->tto_eat);
+	philo->is_eating = false;
 	pthread_mutex_unlock(&philo->left_fork);
 	pthread_mutex_unlock(philo->right_fork);
 }
@@ -68,4 +73,5 @@ void	philo_think(t_philo *philo)
 		printf ("%ld %d is thinking 🤔 \n", current_timestamp() - \
 				philo->table->reset_time, philo->id);
 	pthread_mutex_unlock(&philo->table->stop_m);
+	precise_usleep((philo->table->tto_eat / 2));
 }

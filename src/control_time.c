@@ -6,7 +6,7 @@
 /*   By: rbuitrag <rbuitrag@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 17:03:44 by rbuitrag          #+#    #+#             */
-/*   Updated: 2025/03/11 20:54:42 by rbuitrag         ###   ########.fr       */
+/*   Updated: 2025/03/12 13:36:42 by rbuitrag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,11 @@
 long	current_timestamp(void)
 {
 	struct	timeval	time;
-	long	milliseconds;
+	long	miliseconds;
 
 	gettimeofday(&time, NULL);
-	milliseconds = time.tv_sec * 1000 + (time.tv_usec / 1000);
-	return (milliseconds);
+	miliseconds = time.tv_sec * 1000 + time.tv_usec / 1000;
+	return (miliseconds);
 }
 
 void	precise_usleep(long miliseconds)
@@ -29,9 +29,9 @@ void	precise_usleep(long miliseconds)
 
 	start_time = current_timestamp();
 	elapsed = current_timestamp() - start_time;
-	while (miliseconds > elapsed)
+	while (elapsed < miliseconds)
 	{
-		usleep(200);
+		usleep(400);
 		elapsed = current_timestamp() - start_time;
 	}
 }

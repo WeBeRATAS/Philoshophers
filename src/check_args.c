@@ -6,7 +6,7 @@
 /*   By: rbuitrag <rbuitrag@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 18:11:19 by rbuitrag          #+#    #+#             */
-/*   Updated: 2025/03/11 21:55:09 by rbuitrag         ###   ########.fr       */
+/*   Updated: 2025/03/12 09:52:53 by rbuitrag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,10 @@ static int	ft_isdigit(int c)
 	return (0);
 }
 
-static int	ft_atoi(const char *str)
+static long	ft_atoi(const char *str)
 {
-	int	sign;
-	int	num;
+	long	sign;
+	long	num;
 
 	sign = 1;
 	num = 0;

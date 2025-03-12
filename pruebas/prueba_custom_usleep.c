@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   prueba_custom_usleep.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rbuitrag <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: rbuitrag <rbuitrag@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 12:31:22 by rbuitrag          #+#    #+#             */
-/*   Updated: 2025/03/10 13:47:47 by rbuitrag         ###   ########.fr       */
+/*   Updated: 2025/03/12 09:52:12 by rbuitrag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,13 @@
 #define BOL_RED "\033[1;31m"
 #define RESET "\033[0m"
 
-long get_elapsed_ms(struct timeval start, struct timeval end)
+size_t get_elapsed_ms(struct timeval start, struct timeval end)
 {
 	return (end.tv_sec - start.tv_sec) * 1000000L + (end.tv_usec -
 			start.tv_usec);
 }
 
-void precise_usleep(long usec)
+void precise_usleep(size_t usec)
 {
 	struct timeval start, current;
 	long elapsed;

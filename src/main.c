@@ -6,7 +6,7 @@
 /*   By: rbuitrag <rbuitrag@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 08:10:58 by rbuitrag          #+#    #+#             */
-/*   Updated: 2025/03/11 21:03:40 by rbuitrag         ###   ########.fr       */
+/*   Updated: 2025/03/12 08:36:46 by rbuitrag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static void	free_table(t_table *table)
 
 	i = -1;
 	while (table->philos[++i])
-		pthread_join(table->philos[i]->philo_thrd, NULL);
+		pthread_join(table->philos[i]->philo_thread, NULL);
 	i = -1;
 	while (table->philos[++i])
 	{
