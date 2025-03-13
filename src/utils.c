@@ -6,7 +6,7 @@
 /*   By: rbuitrag <rbuitrag@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 18:16:47 by rbuitrag          #+#    #+#             */
-/*   Updated: 2025/03/12 09:56:04 by rbuitrag         ###   ########.fr       */
+/*   Updated: 2025/03/13 12:23:24 by rbuitrag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static void	unlock_and_gettime(t_table *table, long *time_now, int i)
 {
 	pthread_mutex_unlock(&table->stop_m);
-	*time_now = current_timestamp();
+	*time_now = get_time_ml();
 	pthread_mutex_lock(&table->philos[i]->last_m);
 }
 

@@ -6,13 +6,14 @@
 /*   By: rbuitrag <rbuitrag@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 17:03:44 by rbuitrag          #+#    #+#             */
-/*   Updated: 2025/03/12 13:36:42 by rbuitrag         ###   ########.fr       */
+/*   Updated: 2025/03/13 12:25:43 by rbuitrag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/philo.h"
 
-long	current_timestamp(void)
+
+long	get_time_ml(void)
 {
 	struct	timeval	time;
 	long	miliseconds;
@@ -22,17 +23,22 @@ long	current_timestamp(void)
 	return (miliseconds);
 }
 
+static long	gettmstmp(long start)
+{
+	return (get_time_ml() - start);
+}
+
 void	precise_usleep(long miliseconds)
 {
-	long start_time;
-	long elapsed;
+	long	start_time;
+	long	elapsed;
 
-	start_time = current_timestamp();
-	elapsed = current_timestamp() - start_time;
-	while (elapsed < miliseconds)
+	start_time = get_time_ml();
+	elapsed = gettmstmp(start_time);
+	while (miliseconds > elapsed)
 	{
 		usleep(400);
-		elapsed = current_timestamp() - start_time;
+		elapsed = gettmstmp(start_time);
 	}
 }
 
@@ -43,7 +49,7 @@ void	kill(t_table *table, int i)
 	pthread_mutex_lock(&table->stop_m);
 	table->stop = true;
 	pthread_mutex_unlock(&table->stop_m);
-	now = current_timestamp();
+	now = get_time_ml();
 	if (table->each_eat != table->philos[i]->meals)
 		printf("%ld %d died ☠️  \n", now - table->reset_time, i + 1);
 }

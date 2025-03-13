@@ -20,7 +20,7 @@ void	init_table(t_table *table)
 	table->tto_sleep = 0;
 	table->philos = NULL;
 	table->stop = false;
-	table->reset_time = current_timestamp();
+	table->reset_time = get_time_ml();
 	pthread_mutex_init(&table->stop_m, NULL);
 }
 
@@ -33,7 +33,7 @@ void	start_threads(t_table *table)
 	{
 		while (table->philos[++i])
 		{
-			table->philos[i]->last_meal = current_timestamp();
+			table->philos[i]->last_meal = get_time_ml();
 			pthread_create(&table->philos[i]->philo_thread, NULL, \
 				ft_routine_philosophers, table->philos[i]);
 		}
