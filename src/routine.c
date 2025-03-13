@@ -30,8 +30,6 @@ void	*ft_routine_philosophers(void *arg)
 	{
 		pthread_mutex_unlock(&philo->table->stop_m);
 		philo_eat(philo);
-		pthread_mutex_lock(&philo->eating_m);
-		pthread_mutex_unlock(&philo->eating_m);
 		philo_sleep(philo);
 		philo_think(philo);
 		pthread_mutex_lock(&philo->table->stop_m);

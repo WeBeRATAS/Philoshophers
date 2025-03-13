@@ -65,14 +65,14 @@ void	init_philosophers(t_table *table, int num_philos)
 		if (!table->philos[i])
 			return ;
 		pthread_mutex_init(&table->philos[i]->left_fork, NULL);
-		pthread_mutex_init(&table->philos[i]->last_m, NULL);
-		pthread_mutex_init(&table->philos[i]->eating_m, NULL);
+		//pthread_mutex_init(&table->philos[i]->last_m, NULL);
+		//pthread_mutex_init(&table->philos[i]->eating_m, NULL);
 		table->philos[i]->right_fork = NULL;
 		table->philos[i]->table = table;
 		table->philos[i]->id = i + 1;
 		table->philos[i]->meals = 0;
 		table->philos[i]->last_meal = -1;
-		table->philos[i]->is_eating = false;
+		//table->philos[i]->is_eating = false;
 	}
 	set_forks(table);
 }

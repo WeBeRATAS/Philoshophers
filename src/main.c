@@ -6,7 +6,7 @@
 /*   By: rbuitrag <rbuitrag@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 08:10:58 by rbuitrag          #+#    #+#             */
-/*   Updated: 2025/03/13 12:01:15 by rbuitrag         ###   ########.fr       */
+/*   Updated: 2025/03/13 13:09:15 by rbuitrag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ static void	free_table(t_table *table)
 	while (table->philos[++i])
 	{
 		pthread_mutex_destroy(&table->philos[i]->left_fork);
-		pthread_mutex_destroy(&table->philos[i]->last_m);
-		pthread_mutex_destroy(&table->philos[i]->eating_m);
+		//pthread_mutex_destroy(&table->philos[i]->last_m);
+		//pthread_mutex_destroy(&table->philos[i]->eating_m);
 		free(table->philos[i]);
 	}
 	pthread_mutex_destroy(&table->stop_m);
@@ -48,7 +48,7 @@ int	main(int ac, char **av)
 	}
 	start_threads(&table);
 	//usleep(50 * ac);
-	philo_cleaner(&table, -1);
+	philo_controller(&table, -1);
 	free_table(&table);
 	return (0);
 }
