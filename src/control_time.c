@@ -6,7 +6,7 @@
 /*   By: rbuitrag <rbuitrag@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 17:03:44 by rbuitrag          #+#    #+#             */
-/*   Updated: 2025/03/13 13:56:51 by rbuitrag         ###   ########.fr       */
+/*   Updated: 2025/03/18 09:17:09 by rbuitrag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	precise_usleep(long miliseconds)
 	elapsed = gettmstmp(start_time);
 	while (miliseconds > elapsed)
 	{
-		usleep(500);
+		usleep(200);
 		elapsed = gettmstmp(start_time);
 	}
 }

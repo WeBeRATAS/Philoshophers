@@ -6,7 +6,7 @@
 /*   By: rbuitrag <rbuitrag@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 19:40:14 by rbuitrag          #+#    #+#             */
-/*   Updated: 2025/03/13 13:54:16 by rbuitrag         ###   ########.fr       */
+/*   Updated: 2025/03/18 09:04:29 by rbuitrag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ bool		check_args(int ac, char **av, t_table *table);
 void		*ft_routine_philosophers(void *arg);
 int			philo_controller(t_table *table, int i);
 void		kill(t_table *table, int i);
-//void		take_fork(t_philo *philo);
 
 /*Init_Functions * */
 void		init_table(t_table *table);
