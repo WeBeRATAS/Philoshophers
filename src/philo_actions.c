@@ -6,7 +6,7 @@
 /*   By: rbuitrag <rbuitrag@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 17:12:00 by rbuitrag          #+#    #+#             */
-/*   Updated: 2025/03/18 21:02:53 by rbuitrag         ###   ########.fr       */
+/*   Updated: 2025/03/18 22:56:57 by rbuitrag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ void philo_think(t_philo *philo)
     if (!philo->table->stop)
         printf ("%ld %d is thinking 🤔 \n", get_time_ml() - philo->table->reset_time, philo->id);
     pthread_mutex_unlock(&philo->table->stop_m);
-    precise_usleep((philo->table->tto_eat / 2));
+    //precise_usleep((philo->table->tto_eat / 2));
 }
 
 

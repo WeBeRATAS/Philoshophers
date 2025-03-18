@@ -6,7 +6,7 @@
 /*   By: rbuitrag <rbuitrag@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 18:11:19 by rbuitrag          #+#    #+#             */
-/*   Updated: 2025/03/18 09:38:35 by rbuitrag         ###   ########.fr       */
+/*   Updated: 2025/03/18 22:42:19 by rbuitrag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,8 @@ static bool	check_digits(int ac, char **av)
 			if (!ft_isdigit(av[i][j]))
 				return (false);
 		}
+		if (ft_atoi(av[i]) < INT_MIN || ft_atoi(av[i]) > INT_MAX)
+			return (false);
 	}
 	return (true);
 }
