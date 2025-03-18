@@ -6,7 +6,7 @@
 /*   By: rbuitrag <rbuitrag@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 19:40:14 by rbuitrag          #+#    #+#             */
-/*   Updated: 2025/03/18 09:04:29 by rbuitrag         ###   ########.fr       */
+/*   Updated: 2025/03/18 20:33:20 by rbuitrag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ typedef struct s_philo
 	pthread_t		philo_thread;
 	pthread_mutex_t	*right_fork;
 	pthread_mutex_t	left_fork;
+	pthread_mutex_t	last_m;
 	long			last_meal;
 }	t_philo;
 

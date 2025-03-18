@@ -28,27 +28,30 @@ void	start_threads(t_table *table)
 {
 	int	i;
 
-	i = -1;
-	if (table->philos)
+	if (!table->philos)
+		return;
+	i = 0;
+	while (i < table->num_philos)
 	{
-		while (table->philos[++i])
-		{
-			
-			//table->philos[i]->last_meal = get_time_ml();
-			pthread_create(&table->philos[i]->philo_thread, NULL, \
-				ft_routine_philosophers, table->philos[i]);
-			
-			
-		}
-		//pthread_mutex_lock(&table->stop_m);
-		if (!table->stop)
-			philo_controller(table, -1);
-		//pthread_mutex_unlock(&table->stop_m);
-		i = -1;
-		while (table->philos[++i])
-			pthread_join(table->philos[i]->philo_thread, NULL);
+		pthread_mutex_lock(&table->philos[i]->last_m);
+		table->philos[i]->last_meal = get_time_ml();
+		pthread_mutex_unlock(&table->philos[i]->last_m);
+		i++;
 	}
+	i = 0;
+	while (i < table->num_philos)
+	{
+		pthread_create(&table->philos[i]->philo_thread, NULL, 
+			ft_routine_philosophers, table->philos[i]);
+		i++;
+	}
+	if (!table->stop)
+		philo_controller(table, -1);
+	i = 0;
+	while (i < table->num_philos)
+		pthread_join(table->philos[i++]->philo_thread, NULL);
 }
+
 
 void	set_forks(t_table *table)
 {

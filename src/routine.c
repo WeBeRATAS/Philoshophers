@@ -33,7 +33,7 @@ void	*ft_routine_philosophers(void *arg)
 		philo_sleep(philo);
 		philo_think(philo);
 		pthread_mutex_lock(&philo->table->stop_m);
-		if (philo->meals == philo->table->each_eat)
+		if (philo->meals >= philo->table->each_eat && philo->table->each_eat != -1)
 			break ;
 	}
 	pthread_mutex_unlock(&philo->table->stop_m);

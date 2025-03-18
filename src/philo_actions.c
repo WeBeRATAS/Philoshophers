@@ -6,7 +6,7 @@
 /*   By: rbuitrag <rbuitrag@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 17:12:00 by rbuitrag          #+#    #+#             */
-/*   Updated: 2025/03/18 13:45:49 by rbuitrag         ###   ########.fr       */
+/*   Updated: 2025/03/18 21:02:53 by rbuitrag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ static bool take_fork(pthread_mutex_t *fork, t_philo *philo)
     pthread_mutex_unlock(&philo->table->stop_m);
     return (true);
 }
+
 void philo_sleep(t_philo *philo)
 {
     pthread_mutex_lock(&philo->table->stop_m);
@@ -36,6 +37,7 @@ void philo_sleep(t_philo *philo)
     pthread_mutex_unlock(&philo->table->stop_m);
     precise_usleep(philo->table->tto_sleep);
 }
+
 void philo_eat(t_philo *philo)
 {
     if (philo->id % 2 == 0)
@@ -58,18 +60,19 @@ void philo_eat(t_philo *philo)
             return ;
         }
     }
-	pthread_mutex_lock(&philo->table->stop_m);
+    pthread_mutex_lock(&philo->last_m);
+    philo->last_meal = get_time_ml();
+    philo->meals++;
+    pthread_mutex_unlock(&philo->last_m);
+    pthread_mutex_lock(&philo->table->stop_m);
     if (!philo->table->stop)
-    {
-		printf("%ld %d is eating 🍝 \n", get_time_ml() - philo->table->reset_time, philo->id);
-		philo->last_meal = get_time_ml();
-		philo->meals++;
-	}
+        printf("%ld %d is eating 🍝 \n", get_time_ml() - philo->table->reset_time, philo->id);
     pthread_mutex_unlock(&philo->table->stop_m);
     precise_usleep(philo->table->tto_eat);
 	pthread_mutex_unlock(&philo->left_fork);
     pthread_mutex_unlock(philo->right_fork);
 }
+
 void philo_think(t_philo *philo)
 {
     pthread_mutex_lock(&philo->table->stop_m);
