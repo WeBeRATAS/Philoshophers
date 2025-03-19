@@ -6,7 +6,7 @@
 /*   By: rbuitrag <rbuitrag@student.42barcelona.co  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 21:06:52 by rbuitrag          #+#    #+#             */
-/*   Updated: 2025/03/11 21:07:03 by rbuitrag         ###   ########.fr       */
+/*   Updated: 2025/03/19 13:08:30 by fcarranz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void	init_table(t_table *table)
 	table->tto_sleep = 0;
 	table->philos = NULL;
 	table->stop = false;
+  table->total_full = 0;
 	table->reset_time = get_time_ml();
 	pthread_mutex_init(&table->stop_m, NULL);
 }
@@ -80,6 +81,7 @@ void	init_philosophers(t_table *table, int num_philos)
 		table->philos[i]->id = i + 1;
 		table->philos[i]->meals = 0;
 		table->philos[i]->last_meal = -1;
+		table->philos[i]->full = false;
 	}
 	set_forks(table);
 }
