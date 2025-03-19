@@ -24,7 +24,7 @@ void	*ft_routine_philosophers(void *arg)
 		return (NULL);
 
 	if (philo->id % 2 == 0)
-		precise_usleep((philo->table->tto_eat / 2));
+		precise_usleep(1);
 	pthread_mutex_lock(&philo->table->stop_m);
 	while (!philo->table->stop)
 	{

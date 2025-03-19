@@ -6,7 +6,7 @@
 /*   By: rbuitrag <rbuitrag@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 18:16:47 by rbuitrag          #+#    #+#             */
-/*   Updated: 2025/03/18 22:40:08 by rbuitrag         ###   ########.fr       */
+/*   Updated: 2025/03/19 11:33:58 by rbuitrag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@ int philo_controller(t_table *table, int i)
 		{
 			pthread_mutex_lock(&table->philos[i]->last_m);
             time_now = get_time_ml();
-            printf("Philo %d last meal: %ld, time now: %ld, tto_die: %ld\n", 
-                   i + 1, table->philos[i]->last_meal, time_now, table->tto_die);
+           // printf("Philo %d last meal: %ld, time now: %ld, tto_die: %ld\n", 
+            //       i + 1, table->philos[i]->last_meal, time_now, table->tto_die);
             if (time_now - table->philos[i]->last_meal > table->tto_die)
             {
                 pthread_mutex_unlock(&table->philos[i]->last_m);
@@ -42,7 +42,7 @@ int philo_controller(t_table *table, int i)
             pthread_mutex_unlock(&table->philos[i]->last_m);
             i++;
         }
-        usleep(200); // 💤 Pequeña pausa para reducir uso de CPU
+        precise_usleep(10);
     }
     return (0);
 }

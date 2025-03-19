@@ -30,26 +30,23 @@ void	start_threads(t_table *table)
 
 	if (!table->philos)
 		return;
-	i = 0;
-	while (i < table->num_philos)
+	i = -1;
+	while (++i < table->num_philos)
 	{
 		pthread_mutex_lock(&table->philos[i]->last_m);
 		table->philos[i]->last_meal = get_time_ml();
 		pthread_mutex_unlock(&table->philos[i]->last_m);
-		i++;
 	}
-	i = 0;
-	while (i < table->num_philos)
-	{
+	i = -1;
+	while (++i < table->num_philos)
 		pthread_create(&table->philos[i]->philo_thread, NULL, 
 			ft_routine_philosophers, table->philos[i]);
-		i++;
-	}
 	if (!table->stop)
 		philo_controller(table, -1);
-	i = 0;
-	while (i < table->num_philos)
-		pthread_join(table->philos[i++]->philo_thread, NULL);
+	i = -1;
+	while (++i < table->num_philos)
+		pthread_join(table->philos[i]->philo_thread, NULL);
+	
 }
 
 
