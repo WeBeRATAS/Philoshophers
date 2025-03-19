@@ -6,7 +6,7 @@
 /*   By: rbuitrag <rbuitrag@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 19:40:14 by rbuitrag          #+#    #+#             */
-/*   Updated: 2025/03/19 11:33:30 by rbuitrag         ###   ########.fr       */
+/*   Updated: 2025/03/19 13:07:58 by fcarranz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ typedef struct s_table
 	long			tto_eat;
 	long			tto_sleep;
 	int				each_eat;
+  int       total_full;
 	pthread_mutex_t	stop_m;
 	bool			stop;
 	long			reset_time;
@@ -41,6 +42,7 @@ typedef struct s_philo
 {
 	int				id;
 	int				meals;
+  bool      full;
 	t_table			*table;
 	pthread_t		philo_thread;
 	pthread_mutex_t	*right_fork;
@@ -53,7 +55,7 @@ typedef struct s_philo
 bool		check_args(int ac, char **av, t_table *table);
 void		*ft_routine_philosophers(void *arg);
 int			philo_controller(t_table *table, int i);
-void		kill(t_table *table, int i);
+void		kill(t_table *table, int i, long time_now);
 
 /*Init_Functions * */
 void		init_table(t_table *table);

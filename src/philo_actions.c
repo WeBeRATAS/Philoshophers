@@ -6,7 +6,7 @@
 /*   By: rbuitrag <rbuitrag@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 17:12:00 by rbuitrag          #+#    #+#             */
-/*   Updated: 2025/03/19 11:33:43 by rbuitrag         ###   ########.fr       */
+/*   Updated: 2025/03/19 13:20:45 by fcarranz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,12 +59,17 @@ void philo_eat(t_philo *philo)
             return ;
         }
     }
-    pthread_mutex_lock(&philo->last_m);
-    philo->last_meal = get_time_ml();
-    philo->meals++;
-    pthread_mutex_unlock(&philo->last_m);
     pthread_mutex_lock(&philo->table->stop_m);
-    if (!philo->table->stop)
+    if (philo->table->stop || philo->table->each_eat == philo->meals)
+    {
+      pthread_mutex_unlock(&philo->left_fork);
+      pthread_mutex_unlock(philo->right_fork);
+      pthread_mutex_unlock(&philo->table->stop_m);
+      return ;
+    }
+    philo->last_meal = get_time_ml();
+
+    philo->meals++;
         printf("%ld %d is eating 🍝 \n", get_time_ml() - philo->table->reset_time, philo->id);
     pthread_mutex_unlock(&philo->table->stop_m);
     precise_usleep(philo->table->tto_eat);
