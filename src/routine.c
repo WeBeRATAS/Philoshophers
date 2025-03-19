@@ -6,7 +6,7 @@
 /*   By: rbuitrag <rbuitrag@student.42barcelona.co  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 21:06:36 by rbuitrag          #+#    #+#             */
-/*   Updated: 2025/03/19 13:11:16 by fcarranz         ###   ########.fr       */
+/*   Updated: 2025/03/19 20:13:31 by rbuitrag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,16 @@ bool simulation(t_table *table)
 void	*ft_routine_philosophers(void *arg)
 {
 	t_philo	*philo;
+	long time_since_last_meal;
+	long time_to_next_action;
+
 
 	philo = (t_philo *)arg;
 	if (philo->right_fork == &philo->left_fork)
 		return (NULL);
 	if (philo->id % 2 == 0)
     precise_usleep(1);
-	while (simulation(&philo->table))
+	while (simulation(philo->table))
 	{
 		philo_eat(philo);
 		philo_sleep(philo);
@@ -50,6 +53,13 @@ void	*ft_routine_philosophers(void *arg)
 			break ;
     }
     pthread_mutex_unlock(&philo->table->stop_m);
+    // Calcular el tiempo hasta la próxima acción
+        time_since_last_meal = get_time_ml() - philo->last_meal;
+        time_to_next_action = philo->table->tto_eat - time_since_last_meal;
+
+        // Dormir solo si es necesario
+        if (time_to_next_action > 0)
+            precise_usleep(time_to_next_action);
 	}
 	return (NULL);
 }

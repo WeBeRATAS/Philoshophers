@@ -6,7 +6,7 @@
 /*   By: rbuitrag <rbuitrag@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 17:12:00 by rbuitrag          #+#    #+#             */
-/*   Updated: 2025/03/19 13:20:45 by fcarranz         ###   ########.fr       */
+/*   Updated: 2025/03/19 20:05:43 by rbuitrag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,10 +67,10 @@ void philo_eat(t_philo *philo)
       pthread_mutex_unlock(&philo->table->stop_m);
       return ;
     }
+    else
+    	printf("%ld %d is eating 🍝 \n", get_time_ml() - philo->table->reset_time, philo->id);
     philo->last_meal = get_time_ml();
-
     philo->meals++;
-        printf("%ld %d is eating 🍝 \n", get_time_ml() - philo->table->reset_time, philo->id);
     pthread_mutex_unlock(&philo->table->stop_m);
     precise_usleep(philo->table->tto_eat);
     pthread_mutex_unlock(&philo->left_fork);
@@ -83,7 +83,6 @@ void philo_think(t_philo *philo)
     if (!philo->table->stop)
         printf ("%ld %d is thinking 🤔 \n", get_time_ml() - philo->table->reset_time, philo->id);
     pthread_mutex_unlock(&philo->table->stop_m);
-    //precise_usleep((philo->table->tto_eat / 6));
 }
 
 
