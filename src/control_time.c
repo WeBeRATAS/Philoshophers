@@ -6,7 +6,7 @@
 /*   By: rbuitrag <rbuitrag@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 17:03:44 by rbuitrag          #+#    #+#             */
-/*   Updated: 2025/03/19 21:10:08 by rbuitrag         ###   ########.fr       */
+/*   Updated: 2025/03/20 21:15:52 by rbuitrag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,22 +16,22 @@
 long	get_time_ml(void)
 {
 	struct	timeval	time;
-	long	miliseconds;
+	long long	miliseconds;
 
 	gettimeofday(&time, NULL);
-	miliseconds = time.tv_sec * 1000 + time.tv_usec / 1000;
+	miliseconds = time.tv_sec * 1000LL + time.tv_usec / 1000LL;
 	return (miliseconds);
 }
 
-static long	gettmstmp(long start)
+static long	gettmstmp(long long start)
 {
 	return (get_time_ml() - start);
 }
 
-void	precise_usleep(long miliseconds)
+void	precise_usleep(long long miliseconds)
 {
-	long	start_time;
-	long	elapsed;
+	long long	start_time;
+	long long	elapsed;
 
 	start_time = get_time_ml();
 	elapsed = gettmstmp(start_time);
@@ -42,17 +42,15 @@ void	precise_usleep(long miliseconds)
 	}
 }
 
-void	kill(t_table *table, int i)
+void	kill(t_table *table, int i, long long now)
 {
-    long	now;
-
-    pthread_mutex_lock(&table->stop_m);
-    table->stop = true;
-    pthread_mutex_unlock(&table->stop_m);
-    now = get_time_ml();
-    pthread_mutex_lock(&table->philos[i]->last_m);
-    if (table->each_eat != table->philos[i]->meals)
-        printf("%ld %d died ☠️  \n", now - table->reset_time, i + 1);
-    pthread_mutex_unlock(&table->philos[i]->last_m);
+	pthread_mutex_lock(&table->stop_m);
+	table->stop = true;
+	pthread_mutex_unlock(&table->stop_m);
+	pthread_mutex_lock(&table->philos[i]->last_m);
+	if (table->each_eat != table->philos[i]->meals)
+		printf("%lld %d died ☠️\n", now - table->reset_time, i + 1);
+	pthread_mutex_unlock(&table->philos[i]->last_m);
 }
+
 

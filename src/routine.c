@@ -27,14 +27,13 @@ void	*ft_routine_philosophers(void *arg)
 	while (1)
 	{
 		pthread_mutex_lock(&philo->table->stop_m);
-		if (philo->table->stop)
+		if (philo->is_full || philo->table->stop)
 		{
 			pthread_mutex_unlock(&philo->table->stop_m);
 			break;
 		}
 
 		pthread_mutex_unlock(&philo->table->stop_m);
-
 		philo_eat(philo);
 		philo_sleep(philo);
 		philo_think(philo);

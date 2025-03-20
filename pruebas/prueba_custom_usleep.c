@@ -6,7 +6,7 @@
 /*   By: rbuitrag <rbuitrag@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/03 12:31:22 by rbuitrag          #+#    #+#             */
-/*   Updated: 2025/03/12 09:52:12 by rbuitrag         ###   ########.fr       */
+/*   Updated: 2025/03/20 21:15:52 by rbuitrag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,8 @@ int	main(void)
 	/*printf("Expected sleeep: " BOLD_RED "\t0.5" RESET " seconds \n");
 	printf("Actual sleeep: " BOLD_RED "\t\t%f" RESET " seconds \n\n",
 	elapsed);*/
-	printf("Expected sleep duration: \t %ld \n", seconds);
-    printf("Actual sleep duration: \t\t %ld %f \n\n", seconds, elapsed);
+	printf("Expected sleep duration: \t %lld \n", seconds);
+    printf("Actual sleep duration: \t\t %lld %f \n\n", seconds, elapsed);
 	return (0);
 }
 

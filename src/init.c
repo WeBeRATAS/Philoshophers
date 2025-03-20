@@ -37,12 +37,15 @@ void	start_threads(t_table *table)
 		table->philos[i]->last_meal = get_time_ml();
 		//pthread_mutex_unlock(&table->philos[i]->last_m);
 	}
+	
 	i = -1;
 	while (++i < table->num_philos)
-		pthread_create(&table->philos[i]->philo_thread, NULL, 
-			ft_routine_philosophers, table->philos[i]);
-	if (!table->stop)
-		philo_controller(table, -1);
+		if (pthread_create(&table->philos[i]->philo_thread, NULL, 
+			ft_routine_philosophers, table->philos[i]) != 0)
+			return ;
+	if (pthread_create(&table->control_thread, NULL, 
+			philo_controller, table) != 0)
+			return ;
 	i = -1;
 	while (++i < table->num_philos)
 		pthread_join(table->philos[i]->philo_thread, NULL);
@@ -79,6 +82,7 @@ void	init_philosophers(t_table *table, int num_philos)
 		table->philos[i]->table = table;
 		table->philos[i]->id = i + 1;
 		table->philos[i]->meals = 0;
+		table->philos[i]->is_full = false;
 		table->philos[i]->last_meal = -1;
 	}
 	set_forks(table);
