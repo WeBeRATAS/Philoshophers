@@ -6,7 +6,7 @@
 /*   By: rbuitrag <rbuitrag@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 17:12:00 by rbuitrag          #+#    #+#             */
-/*   Updated: 2025/03/20 21:37:19 by rbuitrag         ###   ########.fr       */
+/*   Updated: 2025/03/20 22:17:25 by rbuitrag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,23 +43,23 @@ void philo_eat(t_philo *philo)
     return ;
   if (philo->id % 2 == 0)
   {
-    if (!take_fork(&philo->left_fork, philo))
-      return ;
     if (!take_fork(philo->right_fork, philo))
     {
       pthread_mutex_unlock(&philo->left_fork);
       return ;
     }
+    if (!take_fork(&philo->left_fork, philo))
+      return ;
   }
   else
   {
-    if (!take_fork(philo->right_fork, philo))
-      return ;
     if (!take_fork(&philo->left_fork, philo))
     {
       pthread_mutex_unlock(philo->right_fork);
       return ;
     }
+    if (!take_fork(philo->right_fork, philo))
+      return ;
   }
   pthread_mutex_lock(&philo->table->stop_m);
   if (philo->table->stop)

@@ -34,8 +34,8 @@ void	*ft_routine_philosophers(void *arg)
 	philo = (t_philo *)arg;
 	if (philo->right_fork == &philo->left_fork)
 		return (NULL);
-	if (philo->id % 2 == 0)
-    precise_usleep(2);
+	//if (philo->id % 2 == 0)
+    //	precise_usleep(2);
   while (simulation(philo->table))
 	{
 		philo_eat(philo);
@@ -47,6 +47,7 @@ void	*ft_routine_philosophers(void *arg)
 			break ;
     	}
 		philo_sleep(philo);
+
 		philo_think(philo);
   }
 	return (NULL);

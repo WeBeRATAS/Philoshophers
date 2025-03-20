@@ -6,7 +6,7 @@
 /*   By: rbuitrag <rbuitrag@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 08:10:58 by rbuitrag          #+#    #+#             */
-/*   Updated: 2025/03/19 10:42:44 by rbuitrag         ###   ########.fr       */
+/*   Updated: 2025/03/20 22:00:50 by rbuitrag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static void	free_table(t_table *table)
 		pthread_mutex_destroy(&table->philos[i]->left_fork);
 		free(table->philos[i]);
 	}
-	pthread_mutex_destroy(&table->stop_m);
+	//pthread_mutex_destroy(&table->stop_m);
 	free (table->philos);
 }
 
