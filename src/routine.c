@@ -6,7 +6,7 @@
 /*   By: rbuitrag <rbuitrag@student.42barcelona.co  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 21:06:36 by rbuitrag          #+#    #+#             */
-/*   Updated: 2025/03/20 20:50:06 by fcarranz         ###   ########.fr       */
+/*   Updated: 2025/03/20 21:37:53 by rbuitrag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,12 @@ void	*ft_routine_philosophers(void *arg)
 	{
 		philo_eat(philo);
 		if (philo->full)
-    {
-      pthread_mutex_lock(&philo->table->stop_m);
-      philo->table->total_full++;
-      pthread_mutex_unlock(&philo->table->stop_m);
+    	{
+      	pthread_mutex_lock(&philo->table->stop_m);
+      	philo->table->total_full++;
+      	pthread_mutex_unlock(&philo->table->stop_m);
 			break ;
-    }
+    	}
 		philo_sleep(philo);
 		philo_think(philo);
   }
