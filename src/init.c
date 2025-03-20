@@ -33,11 +33,7 @@ void	start_threads(t_table *table)
 		return;
 	i = -1;
 	while (++i < table->num_philos)
-	{
-		pthread_mutex_lock(&table->philos[i]->last_m);
 		table->philos[i]->last_meal = get_time_ml();
-		pthread_mutex_unlock(&table->philos[i]->last_m);
-	}
 	i = -1;
 	while (++i < table->num_philos)
 		pthread_create(&table->philos[i]->philo_thread, NULL, 

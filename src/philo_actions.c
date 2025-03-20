@@ -6,7 +6,7 @@
 /*   By: rbuitrag <rbuitrag@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 17:12:00 by rbuitrag          #+#    #+#             */
-/*   Updated: 2025/03/19 20:05:43 by rbuitrag         ###   ########.fr       */
+/*   Updated: 2025/03/20 13:46:31 by rbuitrag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static bool take_fork(pthread_mutex_t *fork, t_philo *philo)
 	if (pthread_mutex_lock(fork) != 0)
        return (false);
     pthread_mutex_lock(&philo->table->stop_m);
-    if (!philo->table->stop)
+    if (simulation(philo->table))
         printf ("%ld %d has taken a fork 🍴 \n", get_time_ml() - philo->table->reset_time, philo->id);
     pthread_mutex_unlock(&philo->table->stop_m);
     return (true);
@@ -30,10 +30,11 @@ static bool take_fork(pthread_mutex_t *fork, t_philo *philo)
 
 void philo_sleep(t_philo *philo)
 {
-    pthread_mutex_lock(&philo->table->stop_m);
-    if (!philo->table->stop)
+   // pthread_mutex_lock(&philo->table->stop_m);
+    //if (!philo->table->stop)
+    if (simulation(philo->table))
         printf ("%ld %d is sleeping 💤 \n", get_time_ml() - philo->table->reset_time, philo->id);
-    pthread_mutex_unlock(&philo->table->stop_m);
+    //pthread_mutex_unlock(&philo->table->stop_m);
     precise_usleep(philo->table->tto_sleep);
 }
 
@@ -67,11 +68,12 @@ void philo_eat(t_philo *philo)
       pthread_mutex_unlock(&philo->table->stop_m);
       return ;
     }
-    else
-    	printf("%ld %d is eating 🍝 \n", get_time_ml() - philo->table->reset_time, philo->id);
+    pthread_mutex_lock(&philo->table->stop_m);
     philo->last_meal = get_time_ml();
     philo->meals++;
     pthread_mutex_unlock(&philo->table->stop_m);
+    printf("%ld %d is eating 🍝 \n", get_time_ml() - philo->table->reset_time, philo->id);
+    //pthread_mutex_unlock(&philo->table->stop_m);
     precise_usleep(philo->table->tto_eat);
     pthread_mutex_unlock(&philo->left_fork);
     pthread_mutex_unlock(philo->right_fork);
@@ -79,10 +81,12 @@ void philo_eat(t_philo *philo)
 
 void philo_think(t_philo *philo)
 {
-    pthread_mutex_lock(&philo->table->stop_m);
-    if (!philo->table->stop)
+    //pthread_mutex_lock(&philo->table->stop_m);
+    if (simulation(philo->table))
         printf ("%ld %d is thinking 🤔 \n", get_time_ml() - philo->table->reset_time, philo->id);
-    pthread_mutex_unlock(&philo->table->stop_m);
+    //pthread_mutex_unlock(&philo->table->stop_m);
+    //if ((philo->table->num_philos >= 200 && philo->table->tto_die >= 800) || (philo->table->num_philos >= 200 && philo->table->tto_die >= 410))
+		precise_usleep(1);
 }
 
 
