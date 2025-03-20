@@ -23,7 +23,7 @@ void	*ft_routine_philosophers(void *arg)
 	if (philo->right_fork == &philo->left_fork)
 		return (NULL);
 	if (philo->id % 2 == 0)
-		precise_usleep(1);
+		precise_usleep(2);
 	while (1)
 	{
 		pthread_mutex_lock(&philo->table->stop_m);

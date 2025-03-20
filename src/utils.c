@@ -6,7 +6,7 @@
 /*   By: rbuitrag <rbuitrag@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 18:16:47 by rbuitrag          #+#    #+#             */
-/*   Updated: 2025/03/19 21:27:51 by rbuitrag         ###   ########.fr       */
+/*   Updated: 2025/03/20 14:17:31 by rbuitrag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int philo_controller(t_table *table, int i)
     {
 
         pthread_mutex_lock(&table->stop_m);
-        stop_simulation = table->stop; // 🔄 Hacemos una copia local para evitar bloqueos innecesarios
+        stop_simulation = table->stop;
         pthread_mutex_unlock(&table->stop_m);
 
         if (stop_simulation)
@@ -34,7 +34,7 @@ int philo_controller(t_table *table, int i)
             time_now = get_time_ml();
            // printf("Philo %d last meal: %ld, time now: %ld, tto_die: %ld\n", 
             //       i + 1, table->philos[i]->last_meal, time_now, table->tto_die);
-            if (time_now - table->philos[i]->last_meal > table->tto_die)
+            if (time_now - table->philos[i]->last_meal >= table->tto_die)
             {
                 pthread_mutex_unlock(&table->philos[i]->last_m);
                 kill(table, i);
