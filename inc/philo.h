@@ -6,7 +6,7 @@
 /*   By: rbuitrag <rbuitrag@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 19:40:14 by rbuitrag          #+#    #+#             */
-/*   Updated: 2025/03/20 13:09:48 by rbuitrag         ###   ########.fr       */
+/*   Updated: 2025/03/20 20:39:07 by fcarranz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ typedef struct s_philo
 /*Main_Functions **/ 
 bool		check_args(int ac, char **av, t_table *table);
 void		*ft_routine_philosophers(void *arg);
-int			philo_controller(t_table *table, int i);
+void		philo_controller(t_table *table);
 void		kill(t_table *table, int i, long time_now);
 bool		simulation(t_table *table);
 

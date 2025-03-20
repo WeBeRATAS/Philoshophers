@@ -6,7 +6,7 @@
 /*   By: rbuitrag <rbuitrag@student.42barcelona.co  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 21:06:52 by rbuitrag          #+#    #+#             */
-/*   Updated: 2025/03/19 13:08:30 by fcarranz         ###   ########.fr       */
+/*   Updated: 2025/03/20 20:37:25 by fcarranz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,7 @@ void	start_threads(t_table *table)
 	while (++i < table->num_philos)
 		pthread_create(&table->philos[i]->philo_thread, NULL, 
 			ft_routine_philosophers, table->philos[i]);
-	if (!table->stop)
-		philo_controller(table, -1);
+  philo_controller(table);
 	i = -1;
 	while (++i < table->num_philos)
 		pthread_join(table->philos[i]->philo_thread, NULL);
