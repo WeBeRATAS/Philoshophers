@@ -6,7 +6,7 @@
 /*   By: rbuitrag <rbuitrag@student.42barcelona.co  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 21:06:52 by rbuitrag          #+#    #+#             */
-/*   Updated: 2025/03/20 21:38:29 by rbuitrag         ###   ########.fr       */
+/*   Updated: 2025/03/21 09:31:19 by rbuitrag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	init_table(t_table *table)
 	table->tto_sleep = 0;
 	table->philos = NULL;
 	table->stop = false;
-  table->total_full = 0;
+	table->total_full = 0;
 	table->reset_time = get_time_ml();
 	pthread_mutex_init(&table->stop_m, NULL);
 }
@@ -30,21 +30,19 @@ void	start_threads(t_table *table)
 	int	i;
 
 	if (!table->philos)
-		return;
+		return ;
 	i = -1;
 	while (++i < table->num_philos)
 		table->philos[i]->last_meal = get_time_ml();
 	i = -1;
 	while (++i < table->num_philos)
-		pthread_create(&table->philos[i]->philo_thread, NULL, 
-			ft_routine_philosophers, table->philos[i]);
-  philo_controller(table);
+		pthread_create(&table->philos[i]->philo_thread, NULL, \
+				ft_routine_philosophers, table->philos[i]);
+	philo_controller(table);
 	i = -1;
 	while (++i < table->num_philos)
 		pthread_join(table->philos[i]->philo_thread, NULL);
-	
 }
-
 
 void	set_forks(t_table *table)
 {
@@ -62,7 +60,7 @@ void	set_forks(t_table *table)
 
 void	init_philosophers(t_table *table, int num_philos)
 {
-	int		i;
+	int	i;
 
 	i = -1;
 	while (++i < num_philos)

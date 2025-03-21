@@ -6,7 +6,7 @@
 /*   By: rbuitrag <rbuitrag@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 18:11:19 by rbuitrag          #+#    #+#             */
-/*   Updated: 2025/03/19 08:52:27 by rbuitrag         ###   ########.fr       */
+/*   Updated: 2025/03/21 09:30:51 by rbuitrag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,12 +70,12 @@ bool	check_args(int ac, char **av, t_table *table)
 	table->tto_die = ft_atoi(av[2]);
 	table->tto_eat = ft_atoi(av[3]);
 	table->tto_sleep = ft_atoi(av[4]);
-	if (ac == 6) 
+	if (ac == 6)
 		table->each_eat = ft_atoi(av[5]);
 	table->num_philos = ft_atoi(av[1]);
-	if (table->tto_die <= 0 || table->tto_eat <= 0 || 
-		table->tto_sleep <= 0 || table->num_philos <= 0 || 
-		(ac == 6 && table->each_eat <= 0))
+	if (table->tto_die <= 0 || table->tto_eat <= 0 || \
+			table->tto_sleep <= 0 || table->num_philos <= 0 || \
+			(ac == 6 && table->each_eat <= 0))
 		return (false);
 	table->philos = malloc((table->num_philos + 1) * sizeof(t_philo *));
 	if (!table->philos)

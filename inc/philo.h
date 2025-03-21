@@ -6,7 +6,7 @@
 /*   By: rbuitrag <rbuitrag@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 19:40:14 by rbuitrag          #+#    #+#             */
-/*   Updated: 2025/03/20 20:39:07 by fcarranz         ###   ########.fr       */
+/*   Updated: 2025/03/21 09:23:03 by rbuitrag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ typedef struct s_table
 	long			tto_eat;
 	long			tto_sleep;
 	int				each_eat;
-  int       total_full;
+	int				total_full;
 	pthread_mutex_t	stop_m;
 	bool			stop;
 	long			reset_time;
@@ -42,7 +42,7 @@ typedef struct s_philo
 {
 	int				id;
 	int				meals;
-  bool      full;
+ 	bool			full;
 	t_table			*table;
 	pthread_t		philo_thread;
 	pthread_mutex_t	*right_fork;
@@ -50,7 +50,6 @@ typedef struct s_philo
 	pthread_mutex_t	last_m;
 	long			last_meal;
 }	t_philo;
-
 /*Main_Functions **/ 
 bool		check_args(int ac, char **av, t_table *table);
 void		*ft_routine_philosophers(void *arg);
@@ -68,6 +67,12 @@ void		start_threads(t_table *table);
 void		philo_think(t_philo *philo);
 void		philo_sleep(t_philo *philo);
 void		philo_eat(t_philo *philo);
+
+/* Forks - Tenedores utiles*/
+bool		take_fork(pthread_mutex_t *fork, t_philo *philo);
+void		drop_forks(t_philo *philo);
+bool		handle_forking(t_philo *philo, pthread_mutex_t *first, 
+			pthread_mutex_t *second);
 
 /*Control time **/
 void		precise_usleep(long miliseconds);
