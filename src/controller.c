@@ -6,7 +6,7 @@
 /*   By: rbuitrag <rbuitrag@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 18:16:47 by rbuitrag          #+#    #+#             */
-/*   Updated: 2025/03/21 11:59:40 by rbuitrag         ###   ########.fr       */
+/*   Updated: 2025/03/21 13:40:46 by rbuitrag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,5 +47,5 @@ void	philo_controller(t_table *table)
 		if (i == table->num_philos)
 			i = 0;
 	}
-	//precise_usleep(1);
+	precise_usleep(1);
 }
