@@ -6,7 +6,7 @@
 /*   By: rbuitrag <rbuitrag@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 17:03:44 by rbuitrag          #+#    #+#             */
-/*   Updated: 2025/03/21 10:21:42 by rbuitrag         ###   ########.fr       */
+/*   Updated: 2025/03/21 11:20:35 by rbuitrag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,5 +45,4 @@ void	kill(t_table *table, int i, long time_now)
 {
 	table->stop = true;
 	printf("%ld %d died ☠️  \n", time_now - table->reset_time, i + 1);
-	//precise_usleep(2);
 }
