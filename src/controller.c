@@ -6,7 +6,7 @@
 /*   By: rbuitrag <rbuitrag@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 18:16:47 by rbuitrag          #+#    #+#             */
-/*   Updated: 2025/03/21 11:37:42 by rbuitrag         ###   ########.fr       */
+/*   Updated: 2025/03/21 11:44:18 by rbuitrag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	philo_controller(t_table *table)
 		pthread_mutex_lock(&table->stop_m);
 		time_now = get_time_ml();
 		if (check_full(table))
-				return ;
+			return ;
 		if (table->num_philos == 200 && table->tto_die == 410)
 			precise_usleep(100);
 		if (time_now - table->philos[i]->last_meal >= table->tto_die)

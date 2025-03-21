@@ -6,7 +6,7 @@
 /*   By: rbuitrag <rbuitrag@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 19:40:14 by rbuitrag          #+#    #+#             */
-/*   Updated: 2025/03/21 11:00:31 by rbuitrag         ###   ########.fr       */
+/*   Updated: 2025/03/21 11:43:04 by rbuitrag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ typedef struct s_philo
 {
 	int				id;
 	int				meals;
- 	bool			full;
+	bool			full;
 	t_table			*table;
 	pthread_t		philo_thread;
 	pthread_mutex_t	*right_fork;
@@ -51,7 +51,7 @@ typedef struct s_philo
 	long			last_meal;
 }	t_philo;
 
-/*Main_Functions **/ 
+/*Main_Functions **/
 bool		check_args(int ac, char **av, t_table *table);
 void		*ft_routine_philosophers(void *arg);
 void		philo_controller(t_table *table);

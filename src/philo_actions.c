@@ -6,7 +6,7 @@
 /*   By: rbuitrag <rbuitrag@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 17:12:00 by rbuitrag          #+#    #+#             */
-/*   Updated: 2025/03/21 11:23:18 by rbuitrag         ###   ########.fr       */
+/*   Updated: 2025/03/21 11:43:41 by rbuitrag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	philo_eat(t_philo *philo)
 	if (philo->full)
 		return ;
 	if (order_forking(philo))
-			return ;
+		return ;
 	pthread_mutex_lock(&philo->table->stop_m);
 	if (philo->table->stop)
 	{
