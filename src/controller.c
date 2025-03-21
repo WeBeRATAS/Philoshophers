@@ -6,7 +6,7 @@
 /*   By: rbuitrag <rbuitrag@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 18:16:47 by rbuitrag          #+#    #+#             */
-/*   Updated: 2025/03/21 13:40:46 by rbuitrag         ###   ########.fr       */
+/*   Updated: 2025/03/21 14:27:30 by rbuitrag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,6 @@ void	philo_controller(t_table *table)
 		time_now = get_time_ml();
 		if (check_full(table))
 			return ;
-		//if (table->num_philos == 200 && table->tto_die >= 410)
-		//	precise_usleep(2);
 		if (time_now - table->philos[i]->last_meal >= table->tto_die)
 		{
 			kill(table, i, time_now);
@@ -47,5 +45,5 @@ void	philo_controller(t_table *table)
 		if (i == table->num_philos)
 			i = 0;
 	}
-	precise_usleep(1);
+	precise_usleep(2);
 }
