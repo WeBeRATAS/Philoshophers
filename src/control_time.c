@@ -6,7 +6,7 @@
 /*   By: rbuitrag <rbuitrag@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 17:03:44 by rbuitrag          #+#    #+#             */
-/*   Updated: 2025/03/21 11:56:52 by rbuitrag         ###   ########.fr       */
+/*   Updated: 2025/03/21 19:50:21 by rbuitrag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,23 +22,23 @@ long	get_time_ml(void)
 	return (miliseconds);
 }
 
-static long	gettmstmp(long start)
+void    precise_usleep(long milliseconds)
 {
-	return (get_time_ml() - start);
-}
+    long    start_time;
+    long    elapsed;
+    long    remaining;
 
-void	precise_usleep(long miliseconds)
-{
-	long	start_time;
-	long	elapsed;
-
-	start_time = get_time_ml();
-	elapsed = gettmstmp(start_time);
-	while (miliseconds > elapsed)
-	{
-		usleep(500);
-		elapsed = gettmstmp(start_time);
-	}
+    start_time = get_time_ml();
+    elapsed = 0;
+    while (elapsed < milliseconds)
+    {
+        remaining = milliseconds - elapsed;
+        if (remaining > 1)
+            usleep(remaining * 500); 
+        else
+            usleep(100);
+        elapsed = get_time_ml() - start_time;
+    }
 }
 
 void	kill(t_table *table, int i, long time_now)

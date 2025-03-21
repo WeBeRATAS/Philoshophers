@@ -6,7 +6,7 @@
 /*   By: rbuitrag <rbuitrag@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 19:40:14 by rbuitrag          #+#    #+#             */
-/*   Updated: 2025/03/21 11:43:04 by rbuitrag         ###   ########.fr       */
+/*   Updated: 2025/03/21 19:20:03 by rbuitrag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@ typedef struct s_philo
 	pthread_t		philo_thread;
 	pthread_mutex_t	*right_fork;
 	pthread_mutex_t	left_fork;
+	pthread_mutex_t	*first_fork;
+    pthread_mutex_t	*second_fork;
 	pthread_mutex_t	last_m;
 	long			last_meal;
 }	t_philo;
@@ -74,6 +76,7 @@ bool		take_fork(pthread_mutex_t *fork, t_philo *philo);
 void		drop_forks(t_philo *philo);
 bool		handle_forking(t_philo *philo, pthread_mutex_t *first, \
 			pthread_mutex_t *second);
+void		order_forking(t_philo *philo);
 
 /*Control time **/
 void		precise_usleep(long miliseconds);

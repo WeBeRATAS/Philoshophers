@@ -6,7 +6,7 @@
 /*   By: rbuitrag <rbuitrag@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 08:10:58 by rbuitrag          #+#    #+#             */
-/*   Updated: 2025/03/21 09:19:04 by rbuitrag         ###   ########.fr       */
+/*   Updated: 2025/03/21 18:31:48 by rbuitrag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ int	main(int ac, char **av)
 		return (1);
 	}
 	start_threads(&table);
+	usleep(100);
 	free_table(&table);
 	return (0);
 }

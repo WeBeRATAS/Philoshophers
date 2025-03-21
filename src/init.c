@@ -70,6 +70,8 @@ void	init_philosophers(t_table *table, int num_philos)
 			return ;
 		pthread_mutex_init(&table->philos[i]->left_fork, NULL);
 		table->philos[i]->right_fork = NULL;
+		table->philos[i]->first_fork = NULL;
+		table->philos[i]->second_fork = NULL;
 		table->philos[i]->table = table;
 		table->philos[i]->id = i + 1;
 		table->philos[i]->meals = 0;
@@ -77,4 +79,9 @@ void	init_philosophers(t_table *table, int num_philos)
 		table->philos[i]->full = false;
 	}
 	set_forks(table);
+	i = -1;
+    while (++i < num_philos) 
+    {
+        order_forking(table->philos[i]);
+    }
 }

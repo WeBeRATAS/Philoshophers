@@ -6,7 +6,7 @@
 /*   By: rbuitrag <rbuitrag@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 17:12:00 by rbuitrag          #+#    #+#             */
-/*   Updated: 2025/03/21 11:59:31 by rbuitrag         ###   ########.fr       */
+/*   Updated: 2025/03/21 20:16:18 by rbuitrag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	philo_sleep(t_philo *philo)
 	precise_usleep(philo->table->tto_sleep);
 }
 
-static int	order_forking(t_philo *philo)
+/*static int	order_forking(t_philo *philo)
 {
 	if (philo->id % 2 == 0)
 	{
@@ -35,14 +35,14 @@ static int	order_forking(t_philo *philo)
 			return (1);
 	}
 	return (0);
-}
+}*/
 
 void	philo_eat(t_philo *philo)
 {
 	if (philo->full)
 		return ;
-	if (order_forking(philo))
-		return ;
+	if (!handle_forking(philo, philo->first_fork, philo->second_fork))
+        return;
 	pthread_mutex_lock(&philo->table->stop_m);
 	if (philo->table->stop)
 	{
@@ -68,5 +68,5 @@ void	philo_think(t_philo *philo)
 		printf ("%ld %d is thinking 🤔 \n", get_time_ml() \
 				- philo->table->reset_time, philo->id);
 	pthread_mutex_unlock(&philo->table->stop_m);
-	//precise_usleep(2);
+	usleep(1000);
 }

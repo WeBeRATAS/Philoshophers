@@ -6,7 +6,7 @@
 /*   By: rbuitrag <rbuitrag@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 18:11:19 by rbuitrag          #+#    #+#             */
-/*   Updated: 2025/03/21 09:30:51 by rbuitrag         ###   ########.fr       */
+/*   Updated: 2025/03/21 16:59:09 by rbuitrag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,5 +81,6 @@ bool	check_args(int ac, char **av, t_table *table)
 	if (!table->philos)
 		return (false);
 	table->philos[table->num_philos] = NULL;
-	return (init_philosophers(table, table->num_philos), true);
+	init_philosophers(table, table->num_philos);
+	return (true);
 }
