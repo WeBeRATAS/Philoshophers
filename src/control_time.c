@@ -6,7 +6,7 @@
 /*   By: rbuitrag <rbuitrag@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 17:03:44 by rbuitrag          #+#    #+#             */
-/*   Updated: 2025/03/21 19:50:21 by rbuitrag         ###   ########.fr       */
+/*   Updated: 2025/03/22 08:48:04 by rbuitrag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void    precise_usleep(long milliseconds)
     {
         remaining = milliseconds - elapsed;
         if (remaining > 1)
-            usleep(remaining * 500); 
+            usleep(remaining * 500);
         else
             usleep(100);
         elapsed = get_time_ml() - start_time;
