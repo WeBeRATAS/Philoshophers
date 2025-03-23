@@ -33,11 +33,12 @@ void	start_threads(t_table *table)
 		return ;
 	i = -1;
 	while (++i < table->num_philos)
+	{
+		order_forking(table->philos[i]);
 		table->philos[i]->last_meal = get_time_ml();
-	i = -1;
-	while (++i < table->num_philos)
 		pthread_create(&table->philos[i]->philo_thread, NULL, \
-				ft_routine_philosophers, table->philos[i]);
+			ft_routine_philosophers, table->philos[i]);
+	}
 	philo_controller(table);
 	i = -1;
 	while (++i < table->num_philos)
@@ -79,9 +80,4 @@ void	init_philosophers(t_table *table, int num_philos)
 		table->philos[i]->full = false;
 	}
 	set_forks(table);
-	i = -1;
-    while (++i < num_philos) 
-    {
-        order_forking(table->philos[i]);
-    }
 }

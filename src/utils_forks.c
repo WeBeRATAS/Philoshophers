@@ -6,7 +6,7 @@
 /*   By: rbuitrag <rbuitrag@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 08:47:43 by rbuitrag          #+#    #+#             */
-/*   Updated: 2025/03/21 18:11:13 by rbuitrag         ###   ########.fr       */
+/*   Updated: 2025/03/23 19:58:13 by rbuitrag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,6 @@
 
 bool	take_fork(pthread_mutex_t *fork, t_philo *philo)
 {
-	if (philo->table->num_philos == 1)
-	{
-		pthread_mutex_unlock(fork);
-		return (false);
-	}
 	if (pthread_mutex_lock(fork) != 0)
 		return (false);
 	pthread_mutex_lock(&philo->table->stop_m);
@@ -51,9 +46,9 @@ void	order_forking(t_philo *philo)
 {
 	if (philo->id % 2 == 0) 
     {
-        philo->first_fork = philo->right_fork;
+		philo->first_fork = philo->right_fork;
         philo->second_fork = &philo->left_fork;
-    } 
+	}
     else 
     {
 		philo->first_fork = &philo->left_fork;

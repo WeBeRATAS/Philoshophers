@@ -6,7 +6,7 @@
 /*   By: rbuitrag <rbuitrag@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/27 19:40:14 by rbuitrag          #+#    #+#             */
-/*   Updated: 2025/03/21 19:20:03 by rbuitrag         ###   ########.fr       */
+/*   Updated: 2025/03/23 11:24:56 by rbuitrag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ void		start_threads(t_table *table);
 void		philo_think(t_philo *philo);
 void		philo_sleep(t_philo *philo);
 void		philo_eat(t_philo *philo);
+bool		check_death(t_philo *philo, int i);
 
 /* Forks - Tenedores utiles*/
 bool		take_fork(pthread_mutex_t *fork, t_philo *philo);
