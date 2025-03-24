@@ -6,7 +6,11 @@
 /*   By: rbuitrag <rbuitrag@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 17:03:44 by rbuitrag          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2025/03/24 20:01:41 by rbuitrag         ###   ########.fr       */
+=======
+/*   Updated: 2025/03/24 11:00:21 by rbuitrag         ###   ########.fr       */
+>>>>>>> 43c807a30467ca48e823cdce39aef1721112f3a6
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,20 +28,36 @@ long	get_time_ml(void)
 
 void	precise_usleep(long milliseconds)
 {
+<<<<<<< HEAD
 	long    start_time;
 	long    elapsed;
 	long    remaining;
 	
+=======
+	long	start_time;
+	long	elapsed;
+	long	remaining;
+
+>>>>>>> 43c807a30467ca48e823cdce39aef1721112f3a6
 	start_time = get_time_ml();
 	elapsed = 0;
 	while (elapsed < milliseconds)
 	{
+<<<<<<< HEAD
 	    remaining = milliseconds - elapsed;
 	    if (remaining > 1)
 		    usleep(remaining * 500);
 	    else
 		    usleep(200);
 	    elapsed = get_time_ml() - start_time;
+=======
+		remaining = milliseconds - elapsed;
+		if (remaining > 1)
+			usleep(remaining * 500);
+		else
+			usleep(200);
+		elapsed = get_time_ml() - start_time;
+>>>>>>> 43c807a30467ca48e823cdce39aef1721112f3a6
 	}
 }
 

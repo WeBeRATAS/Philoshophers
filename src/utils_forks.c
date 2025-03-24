@@ -6,7 +6,7 @@
 /*   By: rbuitrag <rbuitrag@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/21 08:47:43 by rbuitrag          #+#    #+#             */
-/*   Updated: 2025/03/23 19:58:13 by rbuitrag         ###   ########.fr       */
+/*   Updated: 2025/03/24 09:53:56 by rbuitrag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,16 +42,17 @@ bool	handle_forking(t_philo *philo, pthread_mutex_t *first,
 		return (false);
 	return (true);
 }
+
 void	order_forking(t_philo *philo)
 {
-	if (philo->id % 2 == 0) 
-    {
+	if (philo->id % 2 == 0)
+	{
 		philo->first_fork = philo->right_fork;
-        philo->second_fork = &philo->left_fork;
+		philo->second_fork = &philo->left_fork;
 	}
-    else 
-    {
+	else
+	{
 		philo->first_fork = &philo->left_fork;
-        philo->second_fork = philo->right_fork;
-    }
+		philo->second_fork = philo->right_fork;
+	}
 }

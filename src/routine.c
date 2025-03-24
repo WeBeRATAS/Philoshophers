@@ -26,6 +26,7 @@ bool	simulation(t_table *table)
 	pthread_mutex_unlock(&table->stop_m);
 	return (true);
 }
+<<<<<<< HEAD
 
 bool	check_death(t_philo *philo, int i)
 {
@@ -42,6 +43,8 @@ bool	check_death(t_philo *philo, int i)
 	pthread_mutex_unlock(&philo->table->stop_m);
 	return (false);
 }
+=======
+>>>>>>> 43c807a30467ca48e823cdce39aef1721112f3a6
 
 void	*ft_routine_philosophers(void *arg)
 {
@@ -52,7 +55,11 @@ void	*ft_routine_philosophers(void *arg)
 		|| philo->table->num_philos == 1)
 		return (NULL);
 	if (philo->id % 2 == 0)
+<<<<<<< HEAD
 		precise_usleep(1);
+=======
+		precise_usleep(0.1);
+>>>>>>> 43c807a30467ca48e823cdce39aef1721112f3a6
 	while (simulation(philo->table))
 	{
 		philo_eat(philo);
