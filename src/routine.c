@@ -6,7 +6,7 @@
 /*   By: rbuitrag <rbuitrag@student.42barcelona.co  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 21:06:36 by rbuitrag          #+#    #+#             */
-/*   Updated: 2025/03/21 09:12:22 by rbuitrag         ###   ########.fr       */
+/*   Updated: 2025/03/24 19:57:11 by rbuitrag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,11 @@ bool	simulation(t_table *table)
 	pthread_mutex_unlock(&table->stop_m);
 	return (true);
 }
-bool check_death(t_philo *philo, int i)
+
+bool	check_death(t_philo *philo, int i)
 {
 	long time_now;
+	
 	pthread_mutex_lock(&philo->table->stop_m);
 	time_now = get_time_ml();
 	if (time_now - philo->last_meal >= philo->table->tto_die)
@@ -50,7 +52,7 @@ void	*ft_routine_philosophers(void *arg)
 		|| philo->table->num_philos == 1)
 		return (NULL);
 	if (philo->id % 2 == 0)
-		precise_usleep(0.5);
+		precise_usleep(1);
 	while (simulation(philo->table))
 	{
 		philo_eat(philo);

@@ -6,7 +6,7 @@
 /*   By: rbuitrag <rbuitrag@student.42barcelona.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/10 18:11:19 by rbuitrag          #+#    #+#             */
-/*   Updated: 2025/03/21 16:59:09 by rbuitrag         ###   ########.fr       */
+/*   Updated: 2025/03/24 19:56:01 by rbuitrag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,69 +14,67 @@
 
 static int	ft_isdigit(int c)
 {
-	if (c >= '0' && c <= '9')
-		return (1);
-	return (0);
+	return (c >= '0' && c <= '9');
 }
 
 static long	ft_atoi(const char *str)
 {
-	long	sign;
 	long	num;
+	int		i;
 
-	sign = 1;
 	num = 0;
-	while (*str == ' ' || (*str >= 9 && *str <= 13))
-		str++;
-	if (*str == '+' || *str == '-')
+	i = 0;
+	while (str[i] == ' ' || (str[i] >= 9 && str[i] <= 13))
+		i++;
+	if (str[i] == '+')
+		i++;
+	else if (str[i] == '-')
+		return (-1);
+	if (!ft_isdigit(str[i]))
+		return (-1);
+	while (ft_isdigit(str[i]))
 	{
-		if (*str == '-')
-			sign = -1;
-		str++;
+		if (num > (INT_MAX / 10) || (num == (INT_MAX / 10) \
+					&& (str[i] - '0') > (INT_MAX % 10)))
+			return (-1);
+		num = num * 10 + (str[i] - '0');
+		i++;
 	}
-	while (ft_isdigit(*str))
-	{
-		num = (num * 10) + (*str - '0');
-		str++;
-	}
-	return (num * sign);
+	if (str[i] != '\0')
+		return (-1);
+	if (num == 0)
+		return (-1);
+	return (num);
 }
 
-static bool	check_digits(int ac, char **av)
+static bool	is_valid_number(const char *str)
 {
-	int	i;
-	int	j;
-
-	i = 0;
-	j = -1;
-	while (++i < ac -1)
-	{
-		j = 0;
-		while (av[i][++j])
-		{
-			if (!ft_isdigit(av[i][j]))
-				return (false);
-		}
-		if (ft_atoi(av[i]) > INT_MAX)
-			return (false);
-	}
+	if (ft_atoi(str) == -1)
+		return (false);
 	return (true);
 }
 
 bool	check_args(int ac, char **av, t_table *table)
 {
-	if (ac < 5 || ac > 6 || !check_digits(ac, av))
+	int	i;
+
+	if (ac < 5 || ac > 6)
 		return (false);
+	i = 1;
+	while (i < ac)
+	{
+		if (!is_valid_number(av[i]))
+			return (false);
+		i++;
+	}
+	table->num_philos = ft_atoi(av[1]);
 	table->tto_die = ft_atoi(av[2]);
 	table->tto_eat = ft_atoi(av[3]);
 	table->tto_sleep = ft_atoi(av[4]);
 	if (ac == 6)
 		table->each_eat = ft_atoi(av[5]);
-	table->num_philos = ft_atoi(av[1]);
-	if (table->tto_die <= 0 || table->tto_eat <= 0 || \
-			table->tto_sleep <= 0 || table->num_philos <= 0 || \
-			(ac == 6 && table->each_eat <= 0))
-		return (false);
+	else
+		table->each_eat = -1;
 	table->philos = malloc((table->num_philos + 1) * sizeof(t_philo *));
 	if (!table->philos)
 		return (false);
